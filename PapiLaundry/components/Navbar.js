@@ -5,8 +5,6 @@ import ChatScreen from "../navigation/screens/ChatScreen";
 import { Ionicons } from '@expo/vector-icons';
 import ProfileScreen from "../navigation/screens/ProfileScreen";
 import NotificationScreen from "../navigation/screens/NotificationScreen";
-import { createStackNavigator } from "@react-navigation/stack";
-
 
 const Tab = createBottomTabNavigator();
 
@@ -14,14 +12,14 @@ export const Navbar = ({ navigator }) => {
     return (
         <NavigationContainer independent={true}>
             <Tab.Navigator
-                tabBarOptions={{
-                    showLabel: false,
-                    activeTintColor: '#074295',
-                    inactiveTintColor: '#d1d1d1',
-                    labelStyle: {
+                screenOptions={({ route }) => ({
+                    tabBarShowLabel: false,
+                    tabBarActiveTintColor: '#074295',
+                    tabBarInactiveTintColor: '#d1d1d1',
+                    tabBarLabelStyle: {
                         color: 'black',
                     },
-                }}
+                })}
             >
                 <Tab.Screen
                     options={({ route }) => ({
@@ -46,7 +44,7 @@ export const Navbar = ({ navigator }) => {
                 <Tab.Screen
                     options={({ route }) => ({
                         headerShown: true,
-                        showLabel: false,
+                        tabBarShowLabel: false,
                         tabBarIcon: ({ color, size, focused }) => (
                             focused ?
                                 <Ionicons name="notifications" size={size} color={color} /> :
@@ -57,7 +55,7 @@ export const Navbar = ({ navigator }) => {
                 <Tab.Screen
                     options={({ route }) => ({
                         headerShown: true,
-                        showLabel: false,
+                        tabBarShowLabel: false,
                         tabBarIcon: ({ color, size, focused }) => (
                             focused ?
                                 <Ionicons name="person" size={size} color={color} /> :
