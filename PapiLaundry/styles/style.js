@@ -83,6 +83,17 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'white'
   },
 
+  radioButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 8,
+  },
+  radioButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  
+
   // topBarContainer: {
   //   padding: 10,
   // },
