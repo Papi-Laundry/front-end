@@ -121,18 +121,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  greetingsTextH2: {
-    padding: 10,
-    fontSize: 15
-  },
-
-  cardContainer: {
-    backgroundColor: 'red',
-    width:400,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
 
   // topBarContainer: {
   //   padding: 10,
