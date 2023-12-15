@@ -6,9 +6,13 @@ import * as React from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import Picker from "react-native-picker-select";
 import { PickerIOS } from "@react-native-picker/picker";
+import { RadioButton } from 'react-native-paper';
+
 export const RegisterForm = () => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [selectedValue, setSelectedValue] = useState('option1')
+    const [selectedRole, setSelectedRole] = useState('user');
+
     return (
         <SafeAreaView>
             <KeyboardAvoidingView
@@ -44,9 +48,28 @@ export const RegisterForm = () => {
                             />
                         </View>
 
-                        <Text style={styles.formText}>Select roles</Text>
-                        <View style={styles.formInputOuter}>
+                        <Text style={styles.formText}>Select Role</Text>
+                        <View style={styles.radioButtonsContainer}>
+                            <View style={styles.radioButton}>
+                            <Text>User</Text>
+                            <RadioButton
+                                value="user"
+                                status={selectedRole === 'user' ? 'checked' : 'unchecked'}
+                                onPress={() => setSelectedRole('user')}
+                            />
+                            </View>
+
+                            <View style={styles.radioButton}>
+                            <Text>Admin</Text>
+                            <RadioButton
+                                value="admin"
+                                status={selectedRole === 'admin' ? 'checked' : 'unchecked'}
+                                onPress={() => setSelectedRole('admin')}
+                            />
+                            </View>
+                            {/* Add more roles as needed */}
                         </View>
+
 
                         <Text style={styles.formText}>Email</Text>
                         <View style={styles.formInputOuter}>
