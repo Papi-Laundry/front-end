@@ -78,6 +78,11 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "center",
   },
+
+  searchBar: {
+    // backgroundColor: 'white'
+  },
+
   // topBarContainer: {
   //   padding: 10,
   // },

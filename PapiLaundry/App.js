@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MainStack from './navigation/MainStack';
+import MainStack from './stacks/MainStack';
 import { theme } from './styles/style';
 import { PaperProvider } from 'react-native-paper';
 

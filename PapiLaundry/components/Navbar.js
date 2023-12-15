@@ -1,11 +1,11 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import HomeScreen from "../navigation/screens/HomeScreen";
-import ChatScreen from "../navigation/screens/ChatScreen";
-import MapsScreen from "../navigation/screens/MapsScreen";
-import NotificationScreen from "../navigation/screens/NotificationScreen";
-import ProfileScreen from "../navigation/screens/ProfileScreen";
+import HomeScreen from "../screens/HomeScreen";
+import ChatScreen from "../screens/ChatScreen";
+import MapsScreen from "../screens/MapsScreen";
+import NotificationScreen from "../screens/NotificationScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import { styles } from "../styles/style";
