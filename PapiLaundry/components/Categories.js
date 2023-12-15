@@ -24,13 +24,15 @@ export const Categories = () => {
 
 const ChipStyleWithTitle = ({ title }) => {
     return (
-        <Chip
-            onPress={() => console.log("Pressed")}
-            textStyle={{ color: "#074295" }}
-            style={[styles.ChipStyle, styles.chipMargin]}
-        >
-            {title}
-        </Chip>
+        <>
+            <Chip
+                onPress={() => console.log("Pressed")}
+                textStyle={{ color: "#074295" }}
+                style={styles.ChipStyle}
+            >
+                {title}
+            </Chip>
+        </>
     )
 }
 

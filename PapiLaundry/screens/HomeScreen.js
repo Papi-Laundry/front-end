@@ -6,6 +6,7 @@ import { Categories } from '../components/Categories';
 import { Searchbar } from '../components/Searchbar';
 import { CarouselImage } from '../components/Carousel';
 import { Cards } from '../components/Cards';
+import { CardTitle } from '../components/CardTitle';
 
 export default function HomeScreen({ navigation }) {
     // const width = Dimensions.get('window').width;
@@ -15,6 +16,7 @@ export default function HomeScreen({ navigation }) {
                 <Searchbar />
                 <Categories />
                 <CarouselImage />
+                <CardTitle/>
                 <Cards />
                 <Cards />
             </ScrollView>

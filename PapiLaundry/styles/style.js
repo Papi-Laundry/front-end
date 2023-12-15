@@ -92,10 +92,13 @@ export const styles = StyleSheet.create({
   },
 
   searchContainer: {
-    margin: 10,
     padding: 10,
     backgroundColor: '#f7f7f7',
     borderRadius: 50,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 10,
+    marginTop: 5
   },
 
   searchBar: {
@@ -115,8 +118,8 @@ export const styles = StyleSheet.create({
   },
 
   greetingsTextH1: {
-    marginLeft: 10,
-    marginTop: 10,
+    marginLeft: 15,
+    marginTop: 15,
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -137,27 +140,28 @@ export const styles = StyleSheet.create({
   //   fontSize: 15,
   // }
 
-greetingsTextH2: {
-  padding: 10,
-  fontSize: 15
-},
+  greetingsTextH2: {
+    padding: 15,
+    fontSize: 17
+  },
 
-cardContainer: {
-  backgroundColor: 'red',
-  width:400,
-  justifyContent: 'center',
-  alignItems: 'center'
-},
+  cardContainer: {
+    backgroundColor: 'red',
+    width: 400,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
-radioButtonsContainer: {
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  marginTop: 8,
-},
-radioButton: {
-  flexDirection: 'row',
-  alignItems: 'center',
-},
+  radioButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 8,
+  },
+
+  radioButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 
   ChipStyle: {
     backgroundColor: "#f7f7f7",
@@ -166,7 +170,7 @@ radioButton: {
     padding: 7,
     borderRadius: 30,
     fontSize: 30,
-    marginRight: 10,
+    marginLeft: 15,
   },
 
   cardContainer: {
@@ -179,25 +183,38 @@ radioButton: {
     marginBottom: 10,
     marginLeft: 15,
     marginRight: 15,
- },
- image: {
-    width: 150,
-    height: 170,
-    borderRadius: 5,
- },
- details: {
+  },
+  image: {
+    width: 190,
+    height: 190,
+    borderRadius: 10,
+  },
+  details: {
     marginLeft: 10,
     flex: 1,
- },
- title: {
+  },
+  title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
- },
- subtitle: {
+  },
+  subtitle: {
     fontSize: 14,
     color: '#777',
- },
+  },
+  meters: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center"
+  },
+
+  titleCard: {
+    marginLeft: 15,
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
 });
 
 

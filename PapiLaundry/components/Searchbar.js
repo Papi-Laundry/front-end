@@ -11,7 +11,7 @@ export const Searchbar = () => {
                     Hi Ikan,
                 </Text>
                 <Text style={styles.greetingsTextH2}>
-                    Mau Laundry dimana kamu hari ini?
+                    Where do you want to do laundry today?
                 </Text>
             </View>
 
