@@ -1,12 +1,47 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from "../navigation/screens/HomeScreen";
 import ChatScreen from "../navigation/screens/ChatScreen";
-import { Ionicons } from '@expo/vector-icons';
-import ProfileScreen from "../navigation/screens/ProfileScreen";
+import MapsScreen from "../navigation/screens/MapsScreen";
 import NotificationScreen from "../navigation/screens/NotificationScreen";
+import ProfileScreen from "../navigation/screens/ProfileScreen";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { IconButton } from "react-native-paper";
+import { styles } from "../styles/style";
 
 const Tab = createBottomTabNavigator();
+
+const HeaderLeftComponent = () => (
+    <Image
+        source={require('../assets/IMG/IMG_0002.jpg')}
+        style={{ width: 150, height: 30, marginLeft: 15 }}
+    />
+);
+
+const CustomHeaderIcon = ({ icon, onPress }) => (
+    <TouchableOpacity onPress={onPress}>
+        <IconButton icon={icon} size={24} />
+    </TouchableOpacity>
+);
+
+const HeaderRightComponent = () => {
+    const navigation = useNavigation();
+
+    return (
+        <View style={styles.topBarContainer}>
+            <View style={styles.topBarSearch}>
+                <CustomHeaderIcon
+                    icon="menu"
+                    onPress={() => {
+                        navigation.navigate("SearchScreen"); // Navigate to SearchScreen
+                    }}
+                />
+                {/* <Text style={styles.topBarSearchtext}>Search</Text> */}
+            </View>
+        </View>
+    );
+};
 
 export const Navbar = ({ navigator }) => {
     return (
@@ -23,7 +58,10 @@ export const Navbar = ({ navigator }) => {
             >
                 <Tab.Screen
                     options={({ route }) => ({
+                        headerLeft: () => <HeaderLeftComponent />,
+                        headerRight: () => <HeaderRightComponent />,
                         headerShown: true,
+                        title: '',
                         tabBarIcon: ({ color, size, focused }) => (
                             focused ?
                                 <Ionicons name="home" size={size} color={color} /> :
@@ -36,11 +74,23 @@ export const Navbar = ({ navigator }) => {
                         headerShown: true,
                         tabBarIcon: ({ color, size, focused }) => (
                             focused ?
-                                <Ionicons name="chatbubble" size={size} color={color} /> :
-                                <Ionicons name="chatbubble" size={size} color={color} />
+                                <Ionicons name="chatbox" size={size} color={color} /> :
+                                <Ionicons name="chatbox" size={size} color={color} />
                         ),
                     })}
                     name="Chat" component={ChatScreen} />
+
+                <Tab.Screen
+                    options={({ route }) => ({
+                        headerShown: true,
+                        tabBarShowLabel: false,
+                        tabBarIcon: ({ color, size, focused }) => (
+                            focused ?
+                                <Ionicons name="map" size={size} color={color} /> :
+                                <Ionicons name="map" size={size} color={color} />
+                        ),
+                    })}
+                    name="Maps" component={MapsScreen} />
                 <Tab.Screen
                     options={({ route }) => ({
                         headerShown: true,

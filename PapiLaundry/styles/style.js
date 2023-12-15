@@ -7,6 +7,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  bgContainer: {
+    backgroundColor: '#ffffff',
+    flex: 1,
+  },
+
   welcomeText: {
     fontSize: 15,
     marginTop: 30,
@@ -72,7 +77,21 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFB559",
     borderRadius: 50,
     justifyContent: "center",
-  }
+  },
+  // topBarContainer: {
+  //   padding: 10,
+  // },
+  // topBarSearch: {
+  //   backgroundColor: 'red',
+  //   flexDirection: 'row',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   borderRadius: 50,
+  //   padding:6
+  // },
+  // topBarSearchtext: {
+  //   fontSize: 15,
+  // }
 
 });
 
@@ -112,19 +131,19 @@ export const theme = {
 };
 
 
-  // <NavigationContainer>
-    //   <Stack.Navigator>
-    //   <Stack.Screen name="Home" component={HomeScreen} />
-    //   <Stack.Screen name="Chat" component={ChatScreen} />
-    //   <Stack.Screen name="Profile" component={ProfileScreen} />
-        {/* <PaperProvider theme={theme}> */}
-          {/* <View> */}
+// <NavigationContainer>
+//   <Stack.Navigator>
+//   <Stack.Screen name="Home" component={HomeScreen} />
+//   <Stack.Screen name="Chat" component={ChatScreen} />
+//   <Stack.Screen name="Profile" component={ProfileScreen} />
+{/* <PaperProvider theme={theme}> */ }
+{/* <View> */ }
 
-            {/* <StatusBar style="auto" /> */}
-            {/* <LoginForm /> */}
-            {/* <RegisterForm/> */}
-            {/* <Navbar /> */}
-          {/* </View> */}
-        {/* </PaperProvider> */}
-      {/* </Stack.Navigator>
+{/* <StatusBar style="auto" /> */ }
+{/* <LoginForm /> */ }
+{/* <RegisterForm/> */ }
+{/* <Navbar /> */ }
+{/* </View> */ }
+{/* </PaperProvider> */ }
+{/* </Stack.Navigator>
     </NavigationContainer> */}

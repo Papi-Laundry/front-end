@@ -1,8 +1,9 @@
 import { Text, View } from "react-native";
+import { styles } from "../../styles/style";
 
 export default function NotificationScreen({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.bgContainer}>
             <Text>Notification Screen
             </Text>
 

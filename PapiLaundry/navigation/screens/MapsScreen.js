@@ -1,12 +1,10 @@
 import { Text, View } from "react-native";
 import { styles } from "../../styles/style";
-import { Searchbar } from "../../components/Searchbar";
 
-export default function HomeScreen({ navigation }) {
+export default function MapsScreen({ navigation }) {
     return (
         <View style={styles.bgContainer}>
-            <Searchbar/>
-
+            <Text>Maps Screen</Text>
         </View>
     )
 }

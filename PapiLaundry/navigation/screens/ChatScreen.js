@@ -1,8 +1,9 @@
 import { Text, View } from "react-native";
+import { styles } from "../../styles/style";
 
 export default function ChatScreen({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.bgContainer}>
             <Text>Chat Screen</Text>
         </View>
     )
