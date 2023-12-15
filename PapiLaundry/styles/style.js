@@ -137,6 +137,28 @@ export const styles = StyleSheet.create({
   //   fontSize: 15,
   // }
 
+greetingsTextH2: {
+  padding: 10,
+  fontSize: 15
+},
+
+cardContainer: {
+  backgroundColor: 'red',
+  width:400,
+  justifyContent: 'center',
+  alignItems: 'center'
+},
+
+radioButtonsContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  marginTop: 8,
+},
+radioButton: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+
   ChipStyle: {
     backgroundColor: "#f7f7f7",
     color: '#383939',
