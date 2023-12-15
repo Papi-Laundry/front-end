@@ -1,6 +1,18 @@
 import { StyleSheet } from "react-native";
 import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 
+export const theme = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: '#074295',
+    secondary: '#f1c40f',
+    tertiary: 'white',
+    background: "white",
+    surface: "white",
+  }
+};
+
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ffffff',
@@ -79,20 +91,39 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  searchBar: {
-    // backgroundColor: 'white'
+  searchContainer: {
+    padding: 10,
+    backgroundColor: '#f7f7f7',
+    borderRadius: 50,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 10,
+    marginTop: 5
   },
 
-  radioButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 8,
+  searchBar: {
+    flex: 1,
+    flexDirection: "row"
   },
-  radioButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+
+  searchBarText: {
+    color: '#6c6c6c',
+    fontSize: 20,
   },
-  
+
+  searchBarLogo: {
+    color: '#6c6c6c',
+    fontSize: 20,
+    marginRight: 10
+  },
+
+  greetingsTextH1: {
+    marginLeft: 15,
+    marginTop: 15,
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+
 
   // topBarContainer: {
   //   padding: 10,
@@ -109,42 +140,85 @@ export const styles = StyleSheet.create({
   //   fontSize: 15,
   // }
 
-});
+  greetingsTextH2: {
+    padding: 15,
+    fontSize: 17
+  },
 
-export const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+  cardContainer: {
+    backgroundColor: 'red',
+    width: 400,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  radioButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 8,
+  },
+
+  radioButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  ChipStyle: {
+    backgroundColor: "#f7f7f7",
+    color: '#383939',
+    justifyContent: "center",
+    padding: 7,
+    borderRadius: 30,
+    fontSize: 30,
+    marginLeft: 15,
+  },
+
+  cardContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
+    borderRadius: 15,
+    borderColor: '#ddd',
+    padding: 10,
+    marginBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
   },
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: 'purple',
-    borderRadius: 8,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
+  image: {
+    width: 190,
+    height: 190,
+    borderRadius: 10,
+  },
+  details: {
+    marginLeft: 10,
+    flex: 1,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#777',
+  },
+  meters: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center"
+  },
+
+  titleCard: {
+    marginLeft: 15,
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
   },
 });
 
-export const theme = {
-  ...MD3LightTheme,
-  colors: {
-    ...MD3LightTheme.colors,
-    primary: '#074295',
-    secondary: '#f1c40f',
-    tertiary: 'white',
-    background: "white",
-    surface: "white",
-  },
-};
+
+
 
 
 // <NavigationContainer>

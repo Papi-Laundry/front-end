@@ -31,8 +31,6 @@ export default function MainStack() {
                         <Stack.Screen name="Register" component={RegisterForm} />
                     </>
                 )}
-
-
             </Stack.Navigator>
         </NavigationContainer>
     )
