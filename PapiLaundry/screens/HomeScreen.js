@@ -12,10 +12,11 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.bgContainer}>
             <ScrollView>
-                <Searchbar/>
-                <Categories/>
-                <CarouselImage/>
-                <Cards/>
+                <Searchbar />
+                <Categories />
+                <CarouselImage />
+                <Cards />
+                <Cards />
             </ScrollView>
         </View>
     )

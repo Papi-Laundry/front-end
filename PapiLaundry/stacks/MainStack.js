@@ -18,9 +18,9 @@ export default function MainStack() {
                     }
                 }}
             >
-                {/* <Stack.Screen name="Home" component={Navbar} /> */}
+                <Stack.Screen name="Home" component={Navbar} />
                 {/* <Stack.Screen name="Login" component={LoginForm} /> */}
-                <Stack.Screen name="Register" component={RegisterForm} />
+                {/* <Stack.Screen name="Register" component={RegisterForm} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )

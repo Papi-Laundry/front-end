@@ -168,6 +168,36 @@ radioButton: {
     fontSize: 30,
     marginRight: 10,
   },
+
+  cardContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#ddd',
+    padding: 10,
+    marginBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
+ },
+ image: {
+    width: 150,
+    height: 170,
+    borderRadius: 5,
+ },
+ details: {
+    marginLeft: 10,
+    flex: 1,
+ },
+ title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+ },
+ subtitle: {
+    fontSize: 14,
+    color: '#777',
+ },
 });
 
 
