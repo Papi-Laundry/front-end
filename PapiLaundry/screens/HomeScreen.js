@@ -11,7 +11,7 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.bgContainer}>
             <ScrollView>
-                <Searchbar />
+                <Searchbar navigation={navigation}/>
                 <Categories />
                 <CarouselImage />
                 <CardTitle/>
