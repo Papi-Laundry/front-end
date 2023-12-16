@@ -161,7 +161,7 @@ export const styles = StyleSheet.create({
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#e9f7f7',
+    // backgroundColor: '#e9f7f7',
     borderRadius: 10,
     paddingLeft:10
   },
