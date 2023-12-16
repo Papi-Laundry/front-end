@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, Dimensions } from "react-native";
 import { styles } from '../styles/style';
-import { SearchBarIOS } from '@rneui/base/dist/SearchBar/SearchBar-ios';
 import { Categories } from '../components/Categories';
 import { Searchbar } from '../components/Searchbar';
 import { CarouselImage } from '../components/Carousel';
@@ -10,6 +9,7 @@ import { CardTitle } from '../components/CardTitle';
 import axios from 'axios';
 
 export default function HomeScreen({ navigation }) {
+
     // const width = Dimensions.get('window').width;
     const [cardData, setCardData] = useState([]);
 
@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
     useEffect(() => {
       fetchData();
     }, []); // The empty dependency array ensures this effect runs once when the component mounts
-  
+
     return (
         <View style={styles.bgContainer}>
             <ScrollView>
