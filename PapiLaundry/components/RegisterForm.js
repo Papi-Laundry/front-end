@@ -46,24 +46,24 @@ export const RegisterForm = () => {
 
   const handleRegister = async () => {
     try {
-        const response = await axios.post("http://localhost:3001/register", {
-          username: input.username,
-          email: input.email,
-          password: input.password,
-          role: input.role,
-        });
-    
-        // Check if response and response.data are defined
-        if (response && response.data) {
-          console.log("Registration successful", response.data);
-          // You may want to navigate to a different screen or show a success message
-        } else {
-          console.error("Invalid response format", response);
-        }
-      } catch (error) {
-        // Handle errors, e.g., show an error message to the user
-        console.error("Registration failed", error.response ? error.response.data : error.message);
+      const response = await axios.post("http://localhost:3001/register", {
+        username: input.username,
+        email: input.email,
+        password: input.password,
+        role: input.role,
+      });
+
+      // Check if response and response.data are defined
+      if (response && response.data) {
+        console.log("Registration successful", response.data);
+        // You may want to navigate to a different screen or show a success message
+      } else {
+        console.error("Invalid response format", response);
       }
+    } catch (error) {
+      // Handle errors, e.g., show an error message to the user
+      console.error("Registration failed", error.response ? error.response.data : error.message);
+    }
   };
 
   return (
@@ -73,12 +73,12 @@ export const RegisterForm = () => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
         <View>
-            <View style={styles.containerImage}>
-                <Image
-                    source={require('../assets/IMG/37-sign-up.png')}
-                    style={{ width: 280, height: 180, marginTop: 30 }}
-                    />
-            </View>
+          <View style={styles.containerImage}>
+            <Image
+              source={require('../assets/IMG/37-sign-up.png')}
+              style={{ width: 280, height: 180, marginTop: 30 }}
+            />
+          </View>
           <Text style={styles.loginText}>Create Account</Text>
 
           {/* Username Input */}
@@ -114,7 +114,7 @@ export const RegisterForm = () => {
           <View style={styles.radioButtonsContainer}>
             <View style={styles.radioButton}>
               <Text>Client</Text>
-              <RadioButton
+              <RadioButton.Android
                 value="client"
                 status={selectedRole === 'client' ? 'checked' : 'unchecked'}
                 onPress={() => handleRoleChange('client')}
@@ -123,7 +123,7 @@ export const RegisterForm = () => {
 
             <View style={styles.radioButton}>
               <Text>Owner</Text>
-              <RadioButton
+              <RadioButton.Android
                 value="owner"
                 status={selectedRole === 'owner' ? 'checked' : 'unchecked'}
                 onPress={() => handleRoleChange('owner')}

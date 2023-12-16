@@ -27,7 +27,7 @@ export default function MainStack() {
                     </>
                     ) : (
                     <>
-                        <Stack.Screen name="Login" component={LoginForm} />
+                        {/* <Stack.Screen name="Login" component={LoginForm} /> */}
                         <Stack.Screen name="Register" component={RegisterForm} />
                     </>
                 )}
