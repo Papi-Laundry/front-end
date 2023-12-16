@@ -43,7 +43,7 @@ const HeaderRightComponent = () => {
     );
 };
 
-export const Navbar = ({ navigator }) => {
+export const Navbar = ({ navigation, route }) => {
     return (
         <NavigationContainer independent={true}>
             <Tab.Navigator
@@ -68,7 +68,7 @@ export const Navbar = ({ navigator }) => {
                                 <Ionicons name="home" size={size} color={color} />
                         ),
                     })}
-                    name="Home" component={HomeScreen} />
+                    name="Home" children={() => <HomeScreen navigation={navigation} />} />
                 <Tab.Screen
                     options={({ route }) => ({
                         headerShown: true,
