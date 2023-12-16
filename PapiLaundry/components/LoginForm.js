@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from "react";
 import { Image, KeyboardAvoidingView, SafeAreaView, Text, View } from "react-native";
 import { TextInput, Button } from "react-native-paper";
@@ -6,6 +5,8 @@ import axios from "axios";
 import { styles } from "../styles/style";
 import { LoginContext } from '../context/LoginContext';
 import { Link } from "@react-navigation/native";
+import BASE_URL from "../env/env";
+
 
 export const LoginForm = () => {
     const { loginAction } = useContext(LoginContext)
@@ -32,11 +33,12 @@ export const LoginForm = () => {
   
     const handleLogin = async () => {
       try {
-          const response = await axios.post("http://localhost:3001/login", {
+        console.log(BASE_URL);
+          const response = await axios.post(`${BASE_URL}/login`, {
             usernameOrEmail: input.email,
             password: input.password
           });
-      
+          console.log(response);
           // Check if response and response.data are defined
           if (response && response.data) {
             console.log("Login successful", response.data.access_token);

@@ -6,11 +6,15 @@ import {LoginContext} from "../context/LoginContext"
 
 export default function ProfileScreen({ navigation }) {
     const { logoutAction } = useContext(LoginContext)
+    const {addAction} = useContext(LoginContext)
     return (
         <View style={styles.bgContainer}>
             <Text>Profile Screen</Text>
             <Button icon="logout" onPress={() => logoutAction("token")}>
                 Logout
+            </Button>
+            <Button onPress={() => addAction()}>
+                Add
             </Button>
         </View>
     )
