@@ -23,12 +23,12 @@ export default function MainStack() {
             >{
                     isLoggedIn ? (
                     <>
-                        <Stack.Screen name="Home" component={Navbar} />
+                        {/* <Stack.Screen name="Login" component={LoginForm} /> */}
                     </>
                     ) : (
-                    <>
-                        {/* <Stack.Screen name="Login" component={LoginForm} /> */}
-                        <Stack.Screen name="Register" component={RegisterForm} />
+                        <>
+                        <Stack.Screen name="Home" component={Navbar} />
+                        {/* <Stack.Screen name="Register" component={RegisterForm} /> */}
                     </>
                 )}
             </Stack.Navigator>

@@ -10,6 +10,10 @@ export const Cards = () => {
                 <Text style={styles.title}>Home Cleaning</Text>
                 <Text style={styles.subtitle}>Cloth | Shoes | Carpet</Text>
                 <View style={styles.meters}>
+                    <Ionicons name="person-circle" />
+                    <Text>Jaya</Text>
+                </View>
+                <View style={styles.meters}>
                     <Ionicons name="location" />
                     <Text>100M Away</Text>
                 </View>

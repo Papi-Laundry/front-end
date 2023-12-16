@@ -208,7 +208,8 @@ export const styles = StyleSheet.create({
   meters: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: "center"
+    alignItems: "center",
+    gap: 5
   },
 
   titleCard: {
