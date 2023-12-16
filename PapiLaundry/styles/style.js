@@ -1,6 +1,7 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 
+const screenWidth = Dimensions.get("window").width;
 export const theme = {
   ...MD3LightTheme,
   colors: {
@@ -14,6 +15,7 @@ export const theme = {
 };
 
 export const styles = StyleSheet.create({
+
   container: {
     backgroundColor: '#ffffff',
     alignItems: 'center',
@@ -163,7 +165,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: '#e9f7f7',
     borderRadius: 10,
-    paddingLeft:10
+    paddingLeft: 10
   },
 
   ChipStyle: {
@@ -191,6 +193,18 @@ export const styles = StyleSheet.create({
     width: 190,
     height: 190,
     borderRadius: 10,
+  },
+
+  imageLaundry: {
+    width: screenWidth,
+    height: 300,
+  },
+
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    // backgroundColor: 'rgba(0, 0, 0, 0.2)', // Menambahkan lapisan overlay
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   details: {
     marginLeft: 10,
