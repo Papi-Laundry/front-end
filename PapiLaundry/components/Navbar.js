@@ -112,7 +112,7 @@ export const Navbar = ({ navigation, route }) => {
                                 <Ionicons name="person" size={size} color={color} />
                         ),
                     })}
-                    name="Profile" component={ProfileScreen} />
+                    name="Profile" children={() => <ProfileScreen navigation={navigation} />} />
             </Tab.Navigator>
         </NavigationContainer>
     )

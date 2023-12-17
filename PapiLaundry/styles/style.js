@@ -2,6 +2,8 @@ import { Dimensions, StyleSheet } from "react-native";
 import { MD3LightTheme, PaperProvider } from 'react-native-paper';
 
 const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
 export const theme = {
   ...MD3LightTheme,
   colors: {
@@ -245,6 +247,49 @@ export const styles = StyleSheet.create({
     marginRight: 15,
   },
 
+  cardContainerCheckout: {
+    flexDirection: 'row',
+    // alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 10
+  },
+
+  containerPaymentDetail: {
+    flexDirection: 'column',
+    // alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 10
+  },
+
+  selectCheckout: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 10
+  },
+
+  cardContainerNotes: {
+    flexDirection: 'row',
+    // alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    paddingHorizontal: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 10,
+    paddingTop: 10
+  },
+
   cardContainerService: {
     flexDirection: 'column',
     // alignItems: 'center',
@@ -258,6 +303,11 @@ export const styles = StyleSheet.create({
     width: 190,
     height: 190,
     borderRadius: 10,
+  },
+
+  imageCheckout: {
+    width: 100,
+    height: 100,
   },
 
   imageUserRating: {
@@ -317,15 +367,20 @@ export const styles = StyleSheet.create({
     margin: 10
   },
 
+  imageLaundryContainerAdress: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   imageLaundry: {
     width: screenWidth,
     height: 300,
   },
 
   imageMaps: {
-    width: 400,
+    width: 450,
     height: 200,
-    borderRadius: 15
   },
 
   overlay: {
@@ -354,7 +409,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: "center",
-    gap: 5
+    gap: 5,
   },
   metersLaundry: {
     flexDirection: 'row',
@@ -372,8 +427,8 @@ export const styles = StyleSheet.create({
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
-        width: 0,
-        height: 2,
+      width: 0,
+      height: 2,
     },
     topBarContainer: {
       backgroundColor: 'transparent',
@@ -383,10 +438,10 @@ export const styles = StyleSheet.create({
       right: 0,
       zIndex: 10,
       elevation: 3,
-  },
+    },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-},
+  },
   pinIcon: {
     marginRight: 8, // Mengatur jarak antara pin dan teks
   },
@@ -428,5 +483,291 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 5
   },
+
+  containerAddress: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  cardTitleAddress: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  textAddress: {
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  modalContent: {
+    flex: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)"
+
+  },
+  modalTextContainer2: {
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: '#f7f7f7',
+    padding: 15,
+    overflow: 'hidden',
+    width: screenWidth,
+    gap: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: '#f7f7f7',
+    padding: 15,
+    overflow: 'hidden',
+    width: screenWidth
+  },
+  modalText2: {
+    textAlign: 'left',
+  },
+
+  subtotalText: {
+    fontWeight: '300'
+  },
+
+  modalTitle: {
+    marginBottom: 15,
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  containerScrollView: {
+    width: '100%',
+    backgroundColor: 'white',
+  },
+  metersAdress: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center",
+    gap: 5
+  },
+  modalTitleSecondary: {
+    padding: 15,
+    overflow: 'hidden',
+    width: screenWidth,
+    gap: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  modalTextSavedAddress: {
+    textAlign: 'start',
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: '#f7f7f7',
+    padding: 15,
+    overflow: 'hidden',
+    width: screenWidth
+  },
+  editBtn: {
+    padding: 10,
+    backgroundColor: '#074295',
+    borderRadius: 10,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: 'center',
+    textAlign: 'center',
+    marginTop: 10,
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  editBtnText: {
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  titleMainAddress: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center",
+    gap: 5,
+    marginBottom: 10
+  },
+
+  containerVoucher: {
+    width: screenWidth,
+    gap: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  containerPriceTotal: {
+    width: screenWidth,
+    maxWidth: 380,
+    gap: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  containerTotalPaymentLeft: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center'
+  },
+  subtotalPriceText: {
+    fontWeight: '300',
+  },
+  totalPriceText: {
+    fontWeight: 'bold',
+    color: '#074295',
+  },
+
+  containerCheckout: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    backgroundColor: '#ffffff',
+    padding: 15,
+  },
+  buttonCheckout: {
+    backgroundColor: '#074295',
+    padding: 10,
+    borderRadius: 10,
+  },
+  buttonTextChekout: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  profileHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#dbdbdb',
+    padding: 16,
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  profileDetails: {
+    marginLeft: 16,
+  },
+  profileName: {
+    marginBottom: 8,
+    fontSize: 24,
+  },
+  profileHandle: {
+    color: '#657786',
+    fontSize: 18,
+  },
+  LogoutBtn: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center",
+    gap: 5,
+    backgroundColor: '#ffffff',
+    padding: 10,
+    borderRadius: 10,
+    margin: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  cardProfile: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    margin: 20,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+
+  profileBtn: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center",
+    gap: 15,
+    backgroundColor: '#ffffff',
+    padding: 10,
+  },
+  reusableButtonContainer: {
+    backgroundColor: '#074295',
+    padding: 10,
+    margin: 15,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex'
+  },
+  reusableButton: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  textLabel: {
+    fontSize: 18,
+    padding: 10,
+    color: 'grey',
+    marginHorizontal: 10
+  },
+  inputStyleCustom: {
+    backgroundColor: '#e9f7f7',
+    padding: 15,
+    borderRadius: 15,
+    marginHorizontal: 10
+  },
+  chatCard: {
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+},
+sender: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
+},
+message: {
+    fontSize: 14,
+},
+hatCard: {
+  flexDirection: 'row',
+  padding: 10,
+  borderBottomWidth: 1,
+  borderBottomColor: '#ccc',
+},
+cardContent: {
+  flex: 1,
+  marginLeft: 10,
+  flexDirection: 'column',
+},
+senderContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+},
+sender: {
+  fontWeight: 'bold',
+  fontSize: 16,
+},
+dateContainer: {
+  alignSelf: 'flex-end',
+},
+date: {
+  color: '#888',
+  fontSize: 12,
+},
+imageChat: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+},
 });
 

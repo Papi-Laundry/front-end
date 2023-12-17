@@ -100,7 +100,7 @@ export default function LaundryScreen({ navigation }) {
 
             </ScrollView>
             <Tab.Navigator
-                tabBarOptions={{
+                screenOptions={{
                     activeTintColor: '#074295',
                     inactiveTintColor: 'gray',
                     labelStyle: { fontSize: 14 },
