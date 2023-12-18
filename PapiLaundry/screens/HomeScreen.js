@@ -30,19 +30,14 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.bgContainer}>
             <ScrollView>
-                <Searchbar />
+                <Searchbar navigation={navigation}/>
                 <Categories />
                 <CarouselImage />
                 <CardTitle/>
-                {cardData.map((card) => (
-                <Cards
-                    key={card.id}
-                    name={card.name}
-                    subtitle={card.subtitle}
-                    image={card.image}
-                    distance={card.distance}  // Contoh, jika data jarak tersedia di objek card
-                />
-            ))}
+
+                <Cards onPress={() => navigation.navigate("LaundryScreen")}/>
+                <Cards onPress={() => navigation.navigate("LaundryScreen")}/>
+
             </ScrollView>
         </View>
     )
