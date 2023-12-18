@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, KeyboardAvoidingView, SafeAreaView, Text, View, Pressable } from "react-native";
+import { Image, KeyboardAvoidingView, SafeAreaView, Text, View, Pressable, ScrollView } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { RadioButton } from 'react-native-paper';
 import axios from "axios";
@@ -9,11 +9,13 @@ import { useNavigation } from "@react-navigation/native";
 export const RegisterForm = () => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [selectedRole, setSelectedRole] = useState('client');
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [input, setInput] = useState({
     username: '',
     email: '',
     password: '',
-    role: 'client', // Default role
+    role: 'client'
   });
   const navigation = useNavigation()
 
@@ -38,38 +40,35 @@ export const RegisterForm = () => {
     });
   };
 
-  const handleRoleChange = (role) => {
-    setSelectedRole(role);
+  const handleRoleChange = (text) => {
+    setSelectedRole(text);
     setInput({
       ...input,
-      role,
+      role: text
     });
   };
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/register", {
+      setLoading(true)
+      const response = await axios.post("https://07db-139-228-111-126.ngrok-free.app/register", {
         username: input.username,
         email: input.email,
         password: input.password,
         role: input.role,
       });
 
-      // Check if response and response.data are defined
-      if (response && response.data) {
-        console.log("Registration successful", response.data);
-        // You may want to navigate to a different screen or show a success message
-      } else {
-        console.error("Invalid response format", response);
+      if(!response.data.message) {
+        navigation.navigate('Login')
       }
     } catch (error) {
-      // Handle errors, e.g., show an error message to the user
-      console.error("Registration failed", error.response ? error.response.data : error.message);
+      setErrorMessage(error.response.data.message)
+    } finally {
+      setLoading(false)
     }
   };
 
   const handleLoginPress = () => {
-    // Navigate to the 'Register' screen
     navigation.navigate('Login');
   };
 
@@ -79,7 +78,7 @@ export const RegisterForm = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
-        <View>
+        <ScrollView>
           <View style={styles.containerImage}>
             <Image
               source={require('../assets/IMG/37-sign-up.png')}
@@ -89,6 +88,10 @@ export const RegisterForm = () => {
           <Text style={styles.loginText}>Create Account</Text>
 
           {/* Username Input */}
+          {errorMessage && <Text style={{
+            ...styles.formText,
+            color: '#FFA063'
+          }}>{errorMessage}</Text>}
           <Text style={styles.formText}>Username</Text>
           <View style={styles.formInputOuter}>
             <TextInput
@@ -136,7 +139,6 @@ export const RegisterForm = () => {
               />
               <Text>Owner</Text>
             </View>
-            {/* Add more roles as needed */}
           </View>
 
           {/* Password Input */}
@@ -162,13 +164,24 @@ export const RegisterForm = () => {
 
           {/* Register Button */}
           <View style={styles.formInputOuter}>
-            <Button
+            {loading === false ? <Button
               style={styles.loginButton}
               mode="contained"
               onPress={handleRegister}
             >
-              Register
-            </Button>
+              <Text>Register</Text>
+            </Button> : 
+            <Button
+              style={{
+                ...styles.loginButton,
+                backgroundColor: '#FFFADD'
+              }}
+              mode="contained"
+            >
+              <Text style={{
+                color: '#FFB559'
+              }}>Loading</Text>
+            </Button>}
             <Text style={{ fontSize: 15, marginTop: 10 }}>
               I have an account?{' '}
               <Pressable onPress={handleLoginPress}>
@@ -177,7 +190,7 @@ export const RegisterForm = () => {
               Anyway
             </Text>
           </View>
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
