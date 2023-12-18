@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Image, KeyboardAvoidingView, SafeAreaView, Text, View } from "react-native";
+import { Image, KeyboardAvoidingView, SafeAreaView, Text, View, Pressable } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { RadioButton } from 'react-native-paper';
 import axios from "axios";
 import { styles } from "../styles/style";
+import { useNavigation } from "@react-navigation/native";
 
 export const RegisterForm = () => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -14,6 +15,7 @@ export const RegisterForm = () => {
     password: '',
     role: 'client', // Default role
   });
+  const navigation = useNavigation()
 
   const handleUsernameChange = (text) => {
     setInput({
@@ -66,6 +68,11 @@ export const RegisterForm = () => {
     }
   };
 
+  const handleLoginPress = () => {
+    // Navigate to the 'Register' screen
+    navigation.navigate('Login');
+  };
+
   return (
     <SafeAreaView>
       <KeyboardAvoidingView
@@ -113,21 +120,21 @@ export const RegisterForm = () => {
           <Text style={styles.formText}>Select Role</Text>
           <View style={styles.radioButtonsContainer}>
             <View style={styles.radioButton}>
-              <Text>Client</Text>
               <RadioButton.Android
                 value="client"
                 status={selectedRole === 'client' ? 'checked' : 'unchecked'}
                 onPress={() => handleRoleChange('client')}
               />
+              <Text>Client</Text>
             </View>
 
             <View style={styles.radioButton}>
-              <Text>Owner</Text>
               <RadioButton.Android
                 value="owner"
                 status={selectedRole === 'owner' ? 'checked' : 'unchecked'}
                 onPress={() => handleRoleChange('owner')}
               />
+              <Text>Owner</Text>
             </View>
             {/* Add more roles as needed */}
           </View>
@@ -162,6 +169,13 @@ export const RegisterForm = () => {
             >
               Register
             </Button>
+            <Text style={{ fontSize: 15, marginTop: 10 }}>
+              I have an account?{' '}
+              <Pressable onPress={handleLoginPress}>
+                <Text style={styles.TextStyle}>Login</Text>
+              </Pressable>{' '}
+              Anyway
+            </Text>
           </View>
         </View>
       </KeyboardAvoidingView>

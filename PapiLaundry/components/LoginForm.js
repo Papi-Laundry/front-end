@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Image, KeyboardAvoidingView, SafeAreaView, Text, View } from "react-native";
+import { Image, KeyboardAvoidingView, SafeAreaView, Text, View, Pressable } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import axios from "axios";
 import { styles } from "../styles/style";
 import { LoginContext } from '../context/LoginContext';
 import { Link } from "@react-navigation/native";
 import BASE_URL from "../env/env";
-
+import { useNavigation } from "@react-navigation/native"; 
 
 export const LoginForm = () => {
     const { loginAction } = useContext(LoginContext)
@@ -15,6 +15,8 @@ export const LoginForm = () => {
       email: '',
       password: ''
     });
+
+    const navigation = useNavigation();
   
     const handleEmailChange = (text) => {
       setInput({
@@ -29,7 +31,6 @@ export const LoginForm = () => {
         password: text
       });
     };
-  
   
     const handleLogin = async () => {
       try {
@@ -51,6 +52,10 @@ export const LoginForm = () => {
           // Handle errors, e.g., show an error message to the user
           console.error("Login failed", error.response ? error.response.data : error.message);
         }
+    };
+    const handleRegisterPress = () => {
+      // Navigate to the 'Register' screen
+      navigation.navigate('Register');
     };
 
     return (
@@ -115,6 +120,12 @@ export const LoginForm = () => {
                             >
                             Login
                             </Button>
+                            <Text style={{ fontSize: 15, marginTop: 10 }}>
+                                Don't have an account?{" "}
+                                <Pressable onPress={handleRegisterPress}>
+                                  <Text style={styles.TextStyle}>Register</Text>
+                                </Pressable>{" "}Anyway
+                            </Text>
                         </View>
                     </View>
                 </KeyboardAvoidingView>
