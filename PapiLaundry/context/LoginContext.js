@@ -10,7 +10,7 @@ async function getValueFor(key) {
 }
 
 export const LoginProvider = ({children})=>{
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(true) //ganti ke false lagi nanti
     async function loginAction(key, value) {
         try {
             await SecureStore.setItemAsync(key, value);

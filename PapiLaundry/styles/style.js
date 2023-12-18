@@ -28,6 +28,17 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
+  bgContainerNotif: {
+    flex: 1,
+  },
+
+
+  bgContainerProfile: {
+    backgroundColor: '#ffffff',
+    flex: 1,
+    // justifyContent: "center",
+  },
+
   welcomeText: {
     fontSize: 15,
     marginTop: 30,
@@ -644,6 +655,12 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#dbdbdb',
     padding: 16,
   },
+  profileHeaderEdit: {
+    alignItems: 'center',
+    borderBottomColor: '#dbdbdb',
+    padding: 16,
+    justifyContent: 'center'
+  },
   profileImage: {
     width: 100,
     height: 100,
@@ -651,6 +668,9 @@ export const styles = StyleSheet.create({
   },
   profileDetails: {
     marginLeft: 16,
+  },
+  profileDetailsEdit: {
+    justifyContent: 'center',
   },
   profileName: {
     marginBottom: 8,
@@ -727,10 +747,11 @@ export const styles = StyleSheet.create({
   },
   chatCard: {
     padding: 10,
-    marginBottom: 10,
     borderRadius: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
   sender: {
     fontSize: 14,
@@ -772,22 +793,99 @@ export const styles = StyleSheet.create({
     borderRadius: 25,
     marginRight: 10,
   },
-  orderCardContainer: {
-    borderWidth: 1,
+  card: {
+    backgroundColor: '#fff',
     borderRadius: 10,
-    borderColor: '#e0e0e0',
-    backgroundColor: '#ffffff',
+    elevation: 5,
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: { height: 2, width: 2 },
     padding: 15,
-    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  titleOrderCard: {
-    fontSize: 16,
+
+  cardNotification: {
+    backgroundColor: '#fff',
+    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  image: {
+    width: 125,
+    height: 125,
+    borderRadius: 10,
+    marginRight: 15,
+  },
+  imageNotification: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginRight: 15,
+  },
+  info: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  descOrderCard: {
-    fontSize: 14,
-    color: '#666666',
+  price: {
+    fontSize: 16,
+    color: '#999',
+    marginBottom: 10,
+  },
+  statusDelivery: {
+    fontSize: 16,
+    color: '#282828',
+    marginBottom: 10,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  star: {
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    backgroundColor: '#f1c40f',
+    borderRadius: 10,
+    marginRight: 7,
+  },
+  ratingText: {
+    fontSize: 16,
+    color: '#999',
+  },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Warna latar belakang semi-transparan
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  selectImageButton: {
+    backgroundColor: '#f1c40f',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  containerMaps: {
+    ...StyleSheet.absoluteFillObject,
+    height: screenHeight,
+    width: screenWidth,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
 });
 

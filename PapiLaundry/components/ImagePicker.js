@@ -1,47 +1,36 @@
 import React, { useState } from 'react';
-import { View, Image, Platform } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker'
+import { Image, View } from 'react-native';
 import { Button } from './Button';
-import { Ionicons } from '@expo/vector-icons';
 
 export const ImagePickerComponent = () => {
-    const [imageSource, setImageSource] = useState(null);
+    const [image, setImage] = useState(null);
 
-    const selectImage = () => {
-        const options = {
-            title: 'Select Image',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-
-        ImagePicker.showImagePicker(options, response => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = Platform.OS === 'android' ? response.uri : response.uri.replace('file://', '');
-                setImageSource(source);
-            }
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
         });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
     };
 
     return (
-        <View >
-            {imageSource && <Image source={{ uri: imageSource }} style={{ width: 200, height: 200 }} />}
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            {image && <Image source={{ uri: image }} style={{ width: 150, height: 150, borderRadius: 15 }} />}
             <Button
                 title="Select Image"
-                onPress={selectImage}
-                buttonStyle={{ backgroundColor: '#e9f7f7', }}
-                textStyle={{color: '#898989'}}
+                onPress={pickImage}
+                buttonStyle={{ backgroundColor: '#e9f7f7', width: 388 }}
+                textStyle={{ color: '#6c6c6c' }}
             >
-                <Ionicons name="image" size={20} color="#898989" />
-                 Upload Image</Button>
-                 
+                Select Image</Button>
         </View>
     );
 };

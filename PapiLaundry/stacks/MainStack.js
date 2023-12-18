@@ -42,13 +42,13 @@ export default function MainStack() {
                             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
                             <Stack.Screen name="AddLaundryScreen" component={AddLaundryScreen} />
                             <Stack.Screen name="MyServicesScreen" component={MyServicesScreen} />
+                            <Stack.Screen name="AddServiceScreen" component={AddServiceScreen} />
+                            <Stack.Screen name="MessageScreen" component={MessageScreen} />
                         </>
                     ) : (
                         <>
                             <Stack.Screen name="Login" component={LoginForm} />
                             <Stack.Screen name="Register" component={RegisterForm} />
-                            <Stack.Screen name="AddServiceScreen" component={AddServiceScreen} />
-                            <Stack.Screen name="MessageScreen" component={MessageScreen} />
                         </> 
                     )}
             </Stack.Navigator>
