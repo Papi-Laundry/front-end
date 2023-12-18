@@ -5,7 +5,7 @@ import axios from "axios";
 import { styles } from "../styles/style";
 import { LoginContext } from '../context/LoginContext';
 import { Link } from "@react-navigation/native";
-import BASE_URL from "../env/env";
+import BASE_URL from "../constant/constant";
 import { useNavigation } from "@react-navigation/native"; 
 
 export const LoginForm = () => {

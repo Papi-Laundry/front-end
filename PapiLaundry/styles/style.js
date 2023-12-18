@@ -772,5 +772,12 @@ imageChat: {
     borderRadius: 25,
     marginRight: 10,
 },
+centeredContainer: {
+  alignItems: 'center',
+},
+centeredImage: {
+  width: 200,
+  height: 200,
+},
 });
 

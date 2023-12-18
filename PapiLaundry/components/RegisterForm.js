@@ -5,6 +5,7 @@ import { RadioButton } from 'react-native-paper';
 import axios from "axios";
 import { styles } from "../styles/style";
 import { useNavigation } from "@react-navigation/native";
+import BASE_URL from "../constant/constant";
 
 export const RegisterForm = () => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -48,7 +49,7 @@ export const RegisterForm = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/register", {
+      const response = await axios.post(`${BASE_URL}/register`, {
         username: input.username,
         email: input.email,
         password: input.password,
