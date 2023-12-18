@@ -18,40 +18,40 @@ import MessageScreen from "../screens/NestLaundryServices/MessageScreen";
 const Stack = createNativeStackNavigator()
 
 export default function MainStack() {
-    const { isLoggedIn } = useContext(LoginContext)
+  const { isLoggedIn } = useContext(LoginContext)
     
-    return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={{
-                    statusBarColor: 'white',
-                    headerShown: false,
-                    contentStyle: {
-                        backgroundColor: 'white'
-                    }
-                }}
-            >{
-                    isLoggedIn ? (
-                        <>
-                            <Stack.Screen name="Home" component={Navbar} />
-                            <Stack.Screen name="LaundryScreen" component={LaundryScreen} />
-                            <Stack.Screen name="SearchScreen" component={SearchScreen} />
-                            <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
-                            <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
-                            <Stack.Screen name="MyLaundryScreen" component={MyLaundryScreen} />
-                            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
-                            <Stack.Screen name="AddLaundryScreen" component={AddLaundryScreen} />
-                            <Stack.Screen name="MyServicesScreen" component={MyServicesScreen} />
-                            <Stack.Screen name="AddServiceScreen" component={AddServiceScreen} />
-                            <Stack.Screen name="MessageScreen" component={MessageScreen} />
-                        </>
-                    ) : (
-                        <>
-                            <Stack.Screen name="Login" component={LoginForm} />
-                            <Stack.Screen name="Register" component={RegisterForm} />
-                        </> 
-                    )}
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          statusBarColor: 'white',
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: 'white'
+          }
+        }}
+      >{
+        isLoggedIn ? (
+          <>
+            <Stack.Screen name="Home" component={Navbar} />
+            <Stack.Screen name="LaundryScreen" component={LaundryScreen} />
+            <Stack.Screen name="SearchScreen" component={SearchScreen} />
+            <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+            <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
+            <Stack.Screen name="MyLaundryScreen" component={MyLaundryScreen} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+            <Stack.Screen name="AddLaundryScreen" component={AddLaundryScreen} />
+            <Stack.Screen name="MyServicesScreen" component={MyServicesScreen} />
+            <Stack.Screen name="AddServiceScreen" component={AddServiceScreen} />
+            <Stack.Screen name="MessageScreen" component={MessageScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginForm} />
+            <Stack.Screen name="Register" component={RegisterForm} />
+          </> 
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }

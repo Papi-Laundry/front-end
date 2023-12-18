@@ -51,7 +51,7 @@ export const RegisterForm = () => {
   const handleRegister = async () => {
     try {
       setLoading(true)
-      const response = await axios.post("https://07db-139-228-111-126.ngrok-free.app/register", {
+      const response = await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/register`, {
         username: input.username,
         email: input.email,
         password: input.password,

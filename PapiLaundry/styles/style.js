@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { MD3LightTheme, PaperProvider } from 'react-native-paper';
+import { MD3LightTheme } from 'react-native-paper';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -17,7 +17,6 @@ export const theme = {
 };
 
 export const styles = StyleSheet.create({
-
   container: {
     backgroundColor: '#ffffff',
     alignItems: 'center',
@@ -32,11 +31,9 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
-
   bgContainerProfile: {
     backgroundColor: '#ffffff',
     flex: 1,
-    // justifyContent: "center",
   },
 
   welcomeText: {
@@ -58,7 +55,6 @@ export const styles = StyleSheet.create({
     marginLeft: 45
   },
 
-
   formText: {
     fontSize: 15,
     marginTop: 30,
@@ -68,19 +64,16 @@ export const styles = StyleSheet.create({
   },
 
   container: {
-    // flex: 1,
     backgroundColor: '#d1cece',
   },
 
   containerImage: {
-    // flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
   },
 
   formInputOuter: {
     alignItems: 'center',
-
   },
 
   formInputInner: {
@@ -139,22 +132,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-
-  // topBarContainer: {
-  //   padding: 10,
-  // },
-  // topBarSearch: {
-  //   backgroundColor: 'red',
-  //   flexDirection: 'row',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderRadius: 50,
-  //   padding:6
-  // },
-  // topBarSearchtext: {
-  //   fontSize: 15,
-  // }
-
   greetingsTextH2: {
     padding: 15,
     fontSize: 17
@@ -170,6 +147,7 @@ export const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
   },
+
   radioButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -179,7 +157,6 @@ export const styles = StyleSheet.create({
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#e9f7f7',
     borderRadius: 10,
     paddingLeft: 10
   },
@@ -187,7 +164,6 @@ export const styles = StyleSheet.create({
   radioButtonServices: {
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#e9f7f7',
     borderRadius: 10,
   },
 
@@ -207,6 +183,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
   floatingButtonText: {
     color: 'white',
     fontSize: 16,
@@ -248,7 +225,6 @@ export const styles = StyleSheet.create({
 
   cardContainer: {
     flexDirection: 'row',
-    // alignItems: 'center',
     borderWidth: 1,
     borderRadius: 15,
     borderColor: '#ddd',
@@ -260,7 +236,6 @@ export const styles = StyleSheet.create({
 
   cardContainerCheckout: {
     flexDirection: 'row',
-    // alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ddd',
     padding: 10,
@@ -271,7 +246,6 @@ export const styles = StyleSheet.create({
 
   containerPaymentDetail: {
     flexDirection: 'column',
-    // alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ddd',
     padding: 10,
@@ -291,7 +265,6 @@ export const styles = StyleSheet.create({
 
   cardContainerNotes: {
     flexDirection: 'row',
-    // alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ddd',
     paddingHorizontal: 10,
@@ -303,13 +276,13 @@ export const styles = StyleSheet.create({
 
   cardContainerService: {
     flexDirection: 'column',
-    // alignItems: 'center',
     borderWidth: 1,
     borderRadius: 15,
     borderColor: '#ddd',
     padding: 10,
     margin: 15
   },
+
   image: {
     width: 190,
     height: 190,
@@ -333,7 +306,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 15,
     borderRadius: 15,
-
   },
 
   imageCarousel: {
@@ -395,11 +367,9 @@ export const styles = StyleSheet.create({
   },
 
   overlay: {
-    ...StyleSheet.absoluteFillObject,
-    // backgroundColor: 'rgba(0, 0, 0, 0.2)', // Menambahkan lapisan overlay
-    // justifyContent: 'center',
-    // alignItems: 'center',
+    ...StyleSheet.absoluteFillObject
   },
+
   details: {
     marginLeft: 10,
     flex: 1,
@@ -408,20 +378,24 @@ export const styles = StyleSheet.create({
   detailsServices: {
     marginTop: 10
   },
+
   title: {
     fontSize: 18,
     fontWeight: 'bold',
   },
+
   subtitle: {
     fontSize: 14,
     color: '#777',
   },
+
   meters: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: "center",
     gap: 5,
   },
+
   metersLaundry: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -429,6 +403,7 @@ export const styles = StyleSheet.create({
     marginLeft: 15,
     marginTop: 10
   },
+
   topBarOnScroll: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -453,9 +428,11 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+
   pinIcon: {
-    marginRight: 8, // Mengatur jarak antara pin dan teks
+    marginRight: 8,
   },
+
   addressText: {
     fontSize: 15,
     flexWrap: 'wrap',
@@ -471,25 +448,25 @@ export const styles = StyleSheet.create({
 
   containerLaundryName: {
     display: 'flex',
-    // justifyContent: 'center',
-    // alignItems: 'center'
   },
 
   textLaundryName: {
     fontSize: 30,
     padding: 10,
-    fontWeight: ''
   },
+
   secondTextLaundryName: {
     fontSize: 15,
     color: 'grey',
     marginLeft: 10
   },
+
   starsContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginLeft: 10
   },
+
   ratingText: {
     fontSize: 15,
     marginLeft: 5
@@ -499,21 +476,24 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+
   cardTitleAddress: {
     fontSize: 18,
     fontWeight: 'bold',
   },
+
   textAddress: {
     fontSize: 14,
     marginBottom: 5,
   },
+
   modalContent: {
     flex: 0,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)"
-
   },
+
   modalTextContainer2: {
     borderColor: 'rgba(0, 0, 0, 0.1)',
     backgroundColor: '#f7f7f7',
@@ -525,6 +505,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   modalText: {
     marginBottom: 15,
     borderColor: 'rgba(0, 0, 0, 0.1)',
@@ -533,6 +514,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     width: screenWidth
   },
+
   modalText2: {
     textAlign: 'left',
   },
@@ -547,16 +529,19 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   },
+
   containerScrollView: {
     width: '100%',
     backgroundColor: 'white',
   },
+
   metersAdress: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: "center",
     gap: 5
   },
+
   modalTitleSecondary: {
     padding: 15,
     overflow: 'hidden',
@@ -566,6 +551,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   modalTextSavedAddress: {
     textAlign: 'start',
     borderColor: 'rgba(0, 0, 0, 0.1)',
@@ -574,6 +560,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     width: screenWidth
   },
+
   editBtn: {
     padding: 10,
     backgroundColor: '#074295',
@@ -586,10 +573,12 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold'
   },
+
   editBtnText: {
     color: 'white',
     fontWeight: 'bold'
   },
+
   titleMainAddress: {
     display: 'flex',
     flexDirection: 'row',
@@ -597,10 +586,12 @@ export const styles = StyleSheet.create({
     gap: 5,
     marginBottom: 10
   },
+
   TextStyle: {
     textDecorationLine: "underline",
     color: "#0059ff",
   },
+
   containerVoucher: {
     width: screenWidth,
     gap: 5,
@@ -618,15 +609,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+
   containerTotalPaymentLeft: {
     display: 'flex',
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center'
   },
+
   subtotalPriceText: {
     fontWeight: '300',
   },
+
   totalPriceText: {
     fontWeight: 'bold',
     color: '#074295',
@@ -638,16 +632,19 @@ export const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 15,
   },
+
   buttonCheckout: {
     backgroundColor: '#074295',
     padding: 10,
     borderRadius: 10,
   },
+
   buttonTextChekout: {
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
   },
+
   profileHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -655,31 +652,38 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#dbdbdb',
     padding: 16,
   },
+
   profileHeaderEdit: {
     alignItems: 'center',
     borderBottomColor: '#dbdbdb',
     padding: 16,
     justifyContent: 'center'
   },
+
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
   },
+
   profileDetails: {
     marginLeft: 16,
   },
+
   profileDetailsEdit: {
     justifyContent: 'center',
   },
+
   profileName: {
     marginBottom: 8,
     fontSize: 24,
   },
+
   profileHandle: {
     color: '#657786',
     fontSize: 18,
   },
+
   LogoutBtn: {
     display: 'flex',
     flexDirection: 'row',
@@ -695,6 +699,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
   },
+
   cardProfile: {
     backgroundColor: 'white',
     borderRadius: 10,
@@ -706,6 +711,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 10,
     margin: 20,
   },
+
   cardTitle: {
     fontSize: 18,
     fontWeight: '600',
@@ -719,6 +725,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 10,
   },
+
   reusableButtonContainer: {
     backgroundColor: '#074295',
     padding: 10,
@@ -728,23 +735,27 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex'
   },
+
   reusableButton: {
     color: 'white',
     fontSize: 15,
     fontWeight: 'bold'
   },
+  
   textLabel: {
     fontSize: 18,
     padding: 10,
     color: 'grey',
     marginHorizontal: 10
   },
+
   inputStyleCustom: {
     backgroundColor: '#e9f7f7',
     padding: 15,
     borderRadius: 15,
     marginHorizontal: 10
   },
+
   chatCard: {
     padding: 10,
     borderRadius: 5,
@@ -753,46 +764,56 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
+
   sender: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
   },
+
   message: {
     fontSize: 14,
   },
+
   hatCard: {
     flexDirection: 'row',
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
+
   cardContent: {
     flex: 1,
     marginLeft: 10,
     flexDirection: 'column',
   },
+
   senderContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
   sender: {
     fontWeight: 'bold',
     fontSize: 16,
   },
+
   dateContainer: {
     alignSelf: 'flex-end',
   },
+
   date: {
     color: '#888',
     fontSize: 12,
   },
+
   imageChat: {
     width: 50,
     height: 50,
     borderRadius: 25,
     marginRight: 10,
   },
+
   card: {
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -813,40 +834,48 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
+
   image: {
     width: 125,
     height: 125,
     borderRadius: 10,
     marginRight: 15,
   },
+
   imageNotification: {
     width: 100,
     height: 100,
     borderRadius: 10,
     marginRight: 15,
   },
+
   info: {
     flex: 1,
   },
+
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
   },
+
   price: {
     fontSize: 16,
     color: '#999',
     marginBottom: 10,
   },
+
   statusDelivery: {
     fontSize: 16,
     color: '#282828',
     marginBottom: 10,
   },
+
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   star: {
     paddingHorizontal: 15,
     paddingVertical: 5,
@@ -854,6 +883,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 7,
   },
+
   ratingText: {
     fontSize: 16,
     color: '#999',
@@ -863,29 +893,32 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Warna latar belakang semi-transparan
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
+
   modalContent: {
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
   },
+
   selectImageButton: {
     backgroundColor: '#f1c40f',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
   },
+
   containerMaps: {
     ...StyleSheet.absoluteFillObject,
-    height: screenHeight,
+    flex: 1,
     width: screenWidth,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  
   map: {
     ...StyleSheet.absoluteFillObject,
   },
 });
-
