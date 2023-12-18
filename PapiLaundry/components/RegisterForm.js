@@ -26,6 +26,8 @@ export const RegisterForm = () => {
     });
   };
 
+  //mantap
+
   const handleEmailChange = (text) => {
     setInput({
       ...input,
