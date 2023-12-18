@@ -82,7 +82,7 @@ export const Navbar = ({ navigation, route }) => {
 
                 <Tab.Screen
                     options={({ route }) => ({
-                        headerShown: true,
+                        headerShown: false,
                         tabBarShowLabel: false,
                         tabBarIcon: ({ color, size, focused }) => (
                             focused ?
