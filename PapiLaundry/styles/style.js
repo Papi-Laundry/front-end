@@ -586,7 +586,10 @@ export const styles = StyleSheet.create({
     gap: 5,
     marginBottom: 10
   },
-
+  TextStyle: {
+    textDecorationLine: "underline",
+    color: "#0059ff",
+  },
   containerVoucher: {
     width: screenWidth,
     gap: 5,

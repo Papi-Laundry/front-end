@@ -7,6 +7,7 @@ import { CarouselImage } from '../components/Carousel';
 import { Cards } from '../components/Cards';
 import { CardTitle } from '../components/CardTitle';
 import axios from 'axios';
+import { Card } from 'react-native-paper';
 
 export default function HomeScreen({ navigation }) {
 
@@ -16,7 +17,7 @@ export default function HomeScreen({ navigation }) {
     // Fetch card data from the API
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/laundries');
+        const response = await axios.get('https://papi-laundry-server.nokatotedo.my.id/laundries');
         // Assuming the API response contains an array of card data
         setCardData(response.data);
       } catch (error) {
@@ -26,7 +27,7 @@ export default function HomeScreen({ navigation }) {
     useEffect(() => {
       fetchData();
     }, []); // The empty dependency array ensures this effect runs once when the component mounts
-
+    // console.log(cardData);
     return (
         <View style={styles.bgContainer}>
             <ScrollView>
@@ -34,10 +35,18 @@ export default function HomeScreen({ navigation }) {
                 <Categories />
                 <CarouselImage />
                 <CardTitle/>
-
-                <Cards onPress={() => navigation.navigate("LaundryScreen")}/>
-                <Cards onPress={() => navigation.navigate("LaundryScreen")}/>
-
+                {cardData.map((card) => (
+                <Cards
+                    onPress={() => navigation.navigate("LaundryScreen")}
+                    key={card.id}
+                    name={card.name}
+                    subtitle={card.subtitle}
+                    image={card.image}
+                    distance={card.distance}  // Contoh, jika data jarak tersedia di objek card
+                />
+                ))}
+                {/* <Cards onPress={() => navigation.navigate("LaundryScreen")}/> */}
+                {/* <Cards onPress={() => navigation.navigate("LaundryScreen")}/> */}
             </ScrollView>
         </View>
     )
