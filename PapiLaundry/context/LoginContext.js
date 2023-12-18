@@ -5,7 +5,6 @@ export const LoginContext = createContext()
 
 async function getValueFor(key) {
     let result = await SecureStore.getItemAsync(key);
-    console.log(result);
     return result
 }
 
@@ -30,7 +29,6 @@ export const LoginProvider = ({children})=>{
       }
     useEffect(()=>{
         getValueFor("token").then((data)=>{
-            console.log(data);
             if(data){
                 setIsLoggedIn(true)
             }
