@@ -3,8 +3,6 @@ import { styles } from '../styles/style';
 import { SearchBarFloating } from "../components/SearchBarFloating";
 import { useState } from "react";
 import Maps from "../components/Maps";
-import BottomDrawer from "../components/BottomDrawer";
-import AbsoluteButton from "../components/AbsoluteButton";
 
 export default function MapsScreen({ navigation }) {
     const [searchText, setSearchText] = useState('');
