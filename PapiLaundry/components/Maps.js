@@ -8,21 +8,14 @@ import MapCard from './MapCard'
 export default function Maps() {
   const [errorMsg, setErrorMsg] = useState(null)
   const [locationUser, setLocationUser] = useState(null)
-  const [locationPin, setLocationPin] = useState(null)
-  const [laundriesPin, setLaundriesPin] = useState(null)
-  const [region, setRegion] = useState(null)
+  const [locationLaundries, setLocationLaundries] = useState(null)
 
   const getLaundryLocation = async () => {
-    try {
-      const response = await axios({
-        method: 'GET',
-        url: 'https://c343-103-171-161-167.ngrok-free.app/laundries'
-      })
-
-      setLaundriesPin(response.data)
-    } catch (error) {
-      console.log(error)
-    }
+    const response = await axios({
+      url: 'https://e5e2-139-228-111-126.ngrok-free.app/laundries'
+    })
+    
+    setLocationLaundries(response.data)
   }
 
   const getUserLocation = async () => {
@@ -38,26 +31,7 @@ export default function Maps() {
   
     setLocationUser({
       latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.002,
-      longitudeDelta: 0.002
-    })
-  }
-
-  const inputRegion = (latitude, longitude) => {
-    setRegion({
-      latitude,
-      longitude,
-      latitudeDelta: 0.002,
-      longitudeDelta: 0.002
-    })
-  }
-
-  const getLocation = async (event) => {
-    const { latitude, longitude } = event.nativeEvent.coordinate
-    setLocationPin({
-      latitude,
-      longitude
+      longitude: location.coords.longitude
     })
   }
 
@@ -103,14 +77,13 @@ export default function Maps() {
           width: '100%',
           height: '100%',
           position: 'absolute'
-        }} 
-        initialRegion={locationUser}
-        region={region}
-        onLongPress={getLocation}>
-        {locationPin && <Marker
-          coordinate={locationPin}
-        />}
-        {laundriesPin && laundriesPin.map(laundry => {
+        }}
+        initialRegion={{
+          ...locationUser,
+          latitudeDelta: 0.002,
+          longitudeDelta: 0.002
+        }}>
+        {locationLaundries && locationLaundries.map(laundry => {
           return (
             <Marker coordinate={{
               latitude: laundry.locationPoint.coordinates[0],
@@ -141,9 +114,9 @@ export default function Maps() {
         <ScrollView horizontal={true} contentContainerStyle={{
           gap: 20
         }}>
-          {laundriesPin && laundriesPin.map(laundry => {
+          {locationLaundries && locationLaundries.map(laundry => {
             return (
-              <MapCard key={laundry.id} laundry={laundry} inputRegion={inputRegion}/>
+              <MapCard key={laundry.id} laundry={laundry}/>
             )
           })}
         </ScrollView>
