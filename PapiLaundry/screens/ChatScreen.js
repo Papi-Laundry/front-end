@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { styles } from '../styles/style';
+import FloatingButton from '../components/FloatingButton';
+import { Ionicons } from '@expo/vector-icons';
 
 const chatList = [
     {
@@ -67,16 +69,24 @@ const ChatCard = ({ item }) => {
     );
 };
 
-const ChatList = () => {
+const ChatList = ({navigation}) => {
     const renderItem = ({ item }) => <ChatCard item={item} />;
 
     return (
-        <FlatList
-            data={chatList}
-            renderItem={renderItem}
-            keyExtractor={item => item.id.toString()}
-            showsVerticalScrollIndicator={false}
-        />
+        <>
+            <FlatList
+                data={chatList}
+                renderItem={renderItem}
+                keyExtractor={item => item.id.toString()}
+                showsVerticalScrollIndicator={false}
+            />
+            <FloatingButton
+                onPress={() => navigation.navigate("MessageScreen")}
+                buttonStyle={{ backgroundColor: '#074295' }}
+                textStyle={{ fontSize: 15, alignItems: 'center' }}
+                text={<Ionicons name="add" size={30} color={'white'} />}
+            />
+        </>
     );
 };
 
