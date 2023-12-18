@@ -7,8 +7,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function ProfileScreen({ navigation }) {
     const { logoutAction } = useContext(LoginContext)
+    const {addAction} = useContext(LoginContext)
     return (
         <View style={styles.bgContainer}>
+
             <View style={styles.profileHeader}>
                 <Image
                     style={styles.profileImage}
@@ -52,6 +54,7 @@ export default function ProfileScreen({ navigation }) {
                     </View>
                 </TouchableOpacity>
             </View>
+
         </View>
     )
 }
