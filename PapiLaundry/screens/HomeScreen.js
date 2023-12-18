@@ -7,27 +7,31 @@ import { CarouselImage } from '../components/Carousel';
 import { Cards } from '../components/Cards';
 import { CardTitle } from '../components/CardTitle';
 import axios from 'axios';
-import { Card } from 'react-native-paper';
+import BASE_URL from '../env/env';
+import { getUserLocation } from '../helpers/location';
 
 export default function HomeScreen({ navigation }) {
-
     // const width = Dimensions.get('window').width;
-    const [cardData, setCardData] = useState([]);
+    const [laundries, setLaundries] = useState([]);
+    const [locationUser, setLocationUser] = useState(null)
 
-    // Fetch card data from the API
-    const fetchData = async () => {
+    const fetchLaundries = async () => {
       try {
-        const response = await axios.get('https://papi-laundry-server.nokatotedo.my.id/laundries');
-        // Assuming the API response contains an array of card data
-        setCardData(response.data);
+        const userLocation = await getUserLocation()
+
+        const response = await axios.get(`${BASE_URL}/laundries?longitude=${userLocation.longitude}&latitude=${userLocation.latitude}`);
+
+        setLocationUser(userLocation)
+        setLaundries(response.data);
       } catch (error) {
-        console.error('Error fetching card data:', error.message);
+        console.log(error)
       }
     };
+
     useEffect(() => {
-      fetchData();
-    }, []); // The empty dependency array ensures this effect runs once when the component mounts
-    // console.log(cardData);
+      fetchLaundries();
+    }, []);
+
     return (
         <View style={styles.bgContainer}>
             <ScrollView>
@@ -35,18 +39,16 @@ export default function HomeScreen({ navigation }) {
                 <Categories />
                 <CarouselImage />
                 <CardTitle/>
-                {cardData.map((card) => (
-                <Cards
-                    onPress={() => navigation.navigate("LaundryScreen")}
-                    key={card.id}
-                    name={card.name}
-                    subtitle={card.subtitle}
-                    image={card.image}
-                    distance={card.distance}  // Contoh, jika data jarak tersedia di objek card
-                />
+                {locationUser && laundries.map((laundry) => (
+                  <Cards
+                      onPress={() => navigation.navigate("LaundryScreen", {
+                        laundry
+                      })}
+                      key={laundry.id}
+                      laundry={laundry}
+                      locationUser={locationUser}
+                  />
                 ))}
-                {/* <Cards onPress={() => navigation.navigate("LaundryScreen")}/> */}
-                {/* <Cards onPress={() => navigation.navigate("LaundryScreen")}/> */}
             </ScrollView>
         </View>
     )

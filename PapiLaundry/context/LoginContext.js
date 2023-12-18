@@ -19,7 +19,7 @@ export const LoginProvider = ({children})=>{
         }
       }
 
-      async function logoutAction(key) {
+    async function logoutAction(key) {
         try {
             await SecureStore.deleteItemAsync(key);
             setIsLoggedIn(false)
@@ -27,6 +27,15 @@ export const LoginProvider = ({children})=>{
             console.log(error);
         }
       }
+
+    async function getToken() {
+        try {
+            return getValueFor("token")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(()=>{
         getValueFor("token").then((data)=>{
             if(data){
@@ -34,8 +43,9 @@ export const LoginProvider = ({children})=>{
             }
         })
     }, [])
+
     return (
-        <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, loginAction, logoutAction}}>
+        <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, loginAction, logoutAction, getToken}}>
             {children}
         </LoginContext.Provider>
     )
