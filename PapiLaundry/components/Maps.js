@@ -1,46 +1,57 @@
 import MapView, { MapCallout, Marker } from 'react-native-maps'
-import * as Location from 'expo-location'
-import { useEffect, useState } from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { useContext, useEffect, useState } from 'react'
+import { Image, Text, View } from 'react-native'
 import axios from 'axios'
-import MapCard from './MapCard'
+import { UserContext } from '../context/UserContext';
 
-export default function Maps() {
-  const [errorMsg, setErrorMsg] = useState(null)
-  const [locationUser, setLocationUser] = useState(null)
-  const [locationLaundries, setLocationLaundries] = useState(null)
+export default function Maps({ laundryPoint }) {
+  const { user } = useContext(UserContext)
+
+  const [locationLaundries, setLocationLaundries] = useState([])
+  const [initialRegion, setInitialRegion] = useState(null)
+  const [region, setRegion] = useState(null)
 
   const getLaundryLocation = async () => {
+    if(laundryPoint) {
+      return
+    }
     const response = await axios({
-      url: 'https://e5e2-139-228-111-126.ngrok-free.app/laundries'
+      url: `${process.env.EXPO_PUBLIC_SERVER_URL}/laundries`
     })
+    
+    console.log(response.data)
     
     setLocationLaundries(response.data)
   }
 
-  const getUserLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync()
-    if(status !== 'granted') {
-      setErrorMsg('Permission to access location was denied')
-      return
-    }
-
-    let location = await Location.getCurrentPositionAsync({
-      accuracy: Location.LocationAccuracy.Highest
-    })
-  
-    setLocationUser({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude
+  const inputRegion = (latitude, longitude) => {
+    setRegion({
+      latitude,
+      longitude,
+      latitudeDelta: 0.0002,
+      longitudeDelta: 0.002
     })
   }
 
   useEffect(() => {
-    getUserLocation()
     getLaundryLocation()
+    if(laundryPoint) {
+      setInitialRegion({
+        latitude: laundryPoint.coordinates[0],
+        longitude: laundryPoint.coordinates[1],
+        latitudeDelta: 0.002,
+        longitudeDelta: 0.002
+      })
+    } else {
+      setInitialRegion({
+        ...user.location,
+        latitudeDelta: 0.002,
+        longitudeDelta: 0.002
+      })
+    }
   }, [])
   
-  if(errorMsg) {
+  if(user.error) {
     return (
       <View style={{
         width: '100%',
@@ -53,7 +64,7 @@ export default function Maps() {
     )
   }
 
-  if(!locationUser) {
+  if(!user.location) {
     return (
       <View style={{
         width: '100%',
@@ -78,16 +89,34 @@ export default function Maps() {
           height: '100%',
           position: 'absolute'
         }}
-        initialRegion={{
-          ...locationUser,
-          latitudeDelta: 0.002,
-          longitudeDelta: 0.002
-        }}>
-        {locationLaundries && locationLaundries.map(laundry => {
+        initialRegion={initialRegion}
+        region={region}>
+          {
+            laundryPoint &&
+            <Marker coordinate={{
+              latitude: laundryPoint.coordinates[0],
+              longitude: laundryPoint.coordinates[1]
+            }}>
+              <Image
+                source={{
+                  uri:"https://cdn-icons-png.flaticon.com/512/4666/4666163.png",
+                }}
+                style={{
+                  aspectRatio: '1/1',
+                  width: 40,
+                  height: 'auto'
+                }}
+              />
+              <MapCallout>
+                <Text>Oke</Text>
+              </MapCallout>
+            </Marker>
+          }
+        {locationLaundries.map(laundry => {
           return (
             <Marker coordinate={{
-              latitude: laundry.locationPoint.coordinates[0],
-              longitude: laundry.locationPoint.coordinates[1]
+              latitude: laundry.laundry.locationPoint.coordinates[0],
+              longitude: laundry.laundry.locationPoint.coordinates[1]
             }} key={laundry.id}>
               <Image
                 source={{
@@ -106,21 +135,6 @@ export default function Maps() {
           )
         })}
       </MapView>
-      <View style={{
-        position: 'absolute',
-        height: 'auto',
-        bottom: 0
-      }}>
-        <ScrollView horizontal={true} contentContainerStyle={{
-          gap: 20
-        }}>
-          {locationLaundries && locationLaundries.map(laundry => {
-            return (
-              <MapCard key={laundry.id} laundry={laundry}/>
-            )
-          })}
-        </ScrollView>
-      </View>
     </View>
   )
 }

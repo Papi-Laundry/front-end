@@ -4,10 +4,13 @@ import { LoginContext } from "../context/LoginContext"
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { UserContext } from '../context/UserContext';
 
 export default function ProfileScreen({ navigation }) {
+    const { user, setUser } = useContext(UserContext)
     const { logoutAction } = useContext(LoginContext)
     const {addAction} = useContext(LoginContext)
+
     return (
         <View style={styles.bgContainer}>
             <View style={styles.profileHeader}>
@@ -18,8 +21,8 @@ export default function ProfileScreen({ navigation }) {
                     }}
                 />
                 <View style={styles.profileDetails}>
-                    <Text style={styles.profileName}>Ikan Asin</Text>
-                    <Text style={styles.profileHandle}>@Ekhan</Text>
+                    <Text style={styles.profileName}>{user.name}</Text>
+                    <Text style={styles.profileHandle}>@{user.User.username}</Text>
                     <Text style={styles.profileHandle}>Joined: 20/12/2023</Text>
                 </View>
             </View>
