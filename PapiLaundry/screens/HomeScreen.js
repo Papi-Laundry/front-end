@@ -15,8 +15,8 @@ export default function HomeScreen({ navigation }) {
                 <Categories />
                 <CarouselImage />
                 <CardTitle/>
-                <Cards navigation={navigation}/>
-                <Cards />
+                <Cards onPress={() => navigation.navigate("LaundryScreen")}/>
+                <Cards onPress={() => navigation.navigate("LaundryScreen")}/>
             </ScrollView>
         </View>
     )

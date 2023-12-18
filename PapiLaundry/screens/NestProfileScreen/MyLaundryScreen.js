@@ -21,7 +21,7 @@ export default function MyLaundryScreen({ navigation }) {
                 centerComponent={{ text: 'My Laundries', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
             />
             <ScrollView>
-                <Cards />
+                <Cards onPress={() => navigation.navigate("MyServicesScreen")}/>
                 <Cards />
                 <Cards />
                 <Button onPress={() => navigation.navigate("AddLaundryScreen")}>Add Laundry</Button>

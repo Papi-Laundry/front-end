@@ -12,6 +12,7 @@ import MyOrderScreen from "../screens/NestProfileScreen/MyOrderScreen";
 import MyLaundryScreen from "../screens/NestProfileScreen/MyLaundryScreen";
 import EditProfileScreen from "../screens/NestProfileScreen/EditProfileScreen";
 import AddLaundryScreen from "../screens/NestProfileScreen/AddLaundryScreen";
+import MyServicesScreen from "../screens/NestProfileScreen/MyServicesScreen";
 const Stack = createNativeStackNavigator()
 
 export default function MainStack() {
@@ -41,6 +42,7 @@ export default function MainStack() {
                             <Stack.Screen name="MyLaundryScreen" component={MyLaundryScreen} />
                             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
                             <Stack.Screen name="AddLaundryScreen" component={AddLaundryScreen} />
+                            <Stack.Screen name="MyServicesScreen" component={MyServicesScreen} />
                             {/* <Stack.Screen name="Login" component={LoginForm} /> */}
                             {/* <Stack.Screen name="Register" component={RegisterForm} /> */}
                         </> 
