@@ -34,13 +34,13 @@ export function ServicesTab({ navigation }) {
 
             <TouchableOpacity
                 style={styles.floatingButton}
-                onPress={() => {
+                onPress={() => { navigation.navigate("CheckoutScreen");
                     // Logika untuk menangani saat tombol checkout ditekan
-                    if (isShoesChecked || isClothesChecked) {
-                        navigation.navigate("CheckoutScreen");
-                    } else {
-                        console.log("Pilih setidaknya satu item untuk checkout.");
-                    }
+                    // if (isShoesChecked) {
+                    //     navigation.navigate("CheckoutScreen");
+                    // } else {
+                    //     console.log("Pilih setidaknya satu item untuk checkout.");
+                    // }
                 }}
             >
                 <Text style={styles.floatingButtonText}>Checkout</Text>
