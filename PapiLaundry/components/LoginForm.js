@@ -1,16 +1,17 @@
 import React, { useState, useContext } from "react";
-import { Image, KeyboardAvoidingView, SafeAreaView, Text, View, Pressable } from "react-native";
+import { Image, KeyboardAvoidingView, SafeAreaView, Text, View, Pressable, ScrollView } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import axios from "axios";
 import { styles } from "../styles/style";
 import { LoginContext } from '../context/LoginContext';
-import { Link } from "@react-navigation/native";
 import BASE_URL from "../env/env";
 import { useNavigation } from "@react-navigation/native"; 
 
 export const LoginForm = () => {
     const { loginAction } = useContext(LoginContext)
     const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [loading, setLoading] = useState(false)
     const [input, setInput] = useState({
       email: '',
       password: ''
@@ -34,27 +35,23 @@ export const LoginForm = () => {
   
     const handleLogin = async () => {
       try {
-        console.log(BASE_URL);
-          const response = await axios.post(`${BASE_URL}/login`, {
-            usernameOrEmail: input.email,
-            password: input.password
-          });
-          console.log(response);
-          // Check if response and response.data are defined
-          if (response && response.data) {
-            console.log("Login successful", response.data.access_token);
-            await loginAction("token", (response.data.access_token));
-            // You may want to navigate to a different screen or show a success message
-          } else {
-            console.error("Invalid response format", response);
-          }
-        } catch (error) {
-          // Handle errors, e.g., show an error message to the user
-          console.error("Login failed", error.response ? error.response.data : error.message);
+        setLoading(true)
+        const response = await axios.post(`${BASE_URL}/login`, {
+          usernameOrEmail: input.email,
+          password: input.password
+        });
+
+        if(!response.data.message) {
+          loginAction("token", (response.data.access_token))
         }
+      } catch (error) {
+        setErrorMessage(error.response.data.message)
+      } finally {
+        setLoading(false)
+      }
     };
+
     const handleRegisterPress = () => {
-      // Navigate to the 'Register' screen
       navigation.navigate('Register');
     };
 
@@ -63,10 +60,9 @@ export const LoginForm = () => {
             <SafeAreaView>
                 <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    // style={styles.container}
                     keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
                 >
-                    <View>
+                    <ScrollView>
                         <View style={styles.containerImage}>
                             <Image
                                 source={require('../assets/IMG/189.-On-Demand-Services.png')}
@@ -79,7 +75,11 @@ export const LoginForm = () => {
                         </View>
 
                         <View style={styles.containerForm}>
-                            <Text style={styles.formText}>Email</Text>
+                            {errorMessage && <Text style={{
+                              ...styles.formText,
+                              color: '#FFA063'
+                            }}>{errorMessage}</Text>}
+                            <Text style={styles.formText}>Username/Email</Text>
                             <View style={styles.formInputOuter}>
                                 <TextInput
                                 autoCapitalize="none"
@@ -113,13 +113,24 @@ export const LoginForm = () => {
                             </View>
                         </View>
                         <View style={styles.formInputOuter}>
-                            <Button
-                            style={styles.loginButton}
-                            mode="contained"
-                            onPress={handleLogin}
+                            {loading === false ? <Button
+                              style={styles.loginButton}
+                              mode="contained"
+                              onPress={handleLogin}
                             >
-                            Login
-                            </Button>
+                              <Text>Login</Text>
+                            </Button> : 
+                            <Button
+                              style={{
+                                ...styles.loginButton,
+                                backgroundColor: '#FFFADD'
+                              }}
+                              mode="contained"
+                            >
+                              <Text style={{
+                                color: '#FFB559'
+                              }}>Loading</Text>
+                            </Button>}
                             <Text style={{ fontSize: 15, marginTop: 10 }}>
                                 Don't have an account?{" "}
                                 <Pressable onPress={handleRegisterPress}>
@@ -127,7 +138,7 @@ export const LoginForm = () => {
                                 </Pressable>{" "}Anyway
                             </Text>
                         </View>
-                    </View>
+                    </ScrollView>
                 </KeyboardAvoidingView>
             </SafeAreaView>
         </>
