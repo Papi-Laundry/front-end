@@ -50,7 +50,7 @@ const chatList = [
 ];
 
 
-const ChatCard = ({ item }) => {
+const ChatCard = ({ item, navigation }) => {
     const formattedDate = new Date(item.date).toLocaleDateString('en-GB'); // Mengubah format tanggal
 
     return (

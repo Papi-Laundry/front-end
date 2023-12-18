@@ -731,46 +731,63 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fff',
     flexDirection: 'row',
-},
-sender: {
+  },
+  sender: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 5,
-},
-message: {
+  },
+  message: {
     fontSize: 14,
-},
-hatCard: {
-  flexDirection: 'row',
-  padding: 10,
-  borderBottomWidth: 1,
-  borderBottomColor: '#ccc',
-},
-cardContent: {
-  flex: 1,
-  marginLeft: 10,
-  flexDirection: 'column',
-},
-senderContainer: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-},
-sender: {
-  fontWeight: 'bold',
-  fontSize: 16,
-},
-dateContainer: {
-  alignSelf: 'flex-end',
-},
-date: {
-  color: '#888',
-  fontSize: 12,
-},
-imageChat: {
+  },
+  hatCard: {
+    flexDirection: 'row',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  cardContent: {
+    flex: 1,
+    marginLeft: 10,
+    flexDirection: 'column',
+  },
+  senderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  sender: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  dateContainer: {
+    alignSelf: 'flex-end',
+  },
+  date: {
+    color: '#888',
+    fontSize: 12,
+  },
+  imageChat: {
     width: 50,
     height: 50,
     borderRadius: 25,
     marginRight: 10,
-},
+  },
+  orderCardContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#e0e0e0',
+    backgroundColor: '#ffffff',
+    padding: 15,
+    marginBottom: 10,
+  },
+  titleOrderCard: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  descOrderCard: {
+    fontSize: 14,
+    color: '#666666',
+  },
 });
 
