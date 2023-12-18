@@ -78,7 +78,7 @@ export const Navbar = ({ navigation, route }) => {
                                 <Ionicons name="chatbox" size={size} color={color} />
                         ),
                     })}
-                    name="Chat" component={ChatScreen} />
+                    name="Chat" children={() => <ChatScreen navigation={navigation} />} />
 
                 <Tab.Screen
                     options={({ route }) => ({
