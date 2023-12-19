@@ -2,14 +2,43 @@ import { styles } from '../styles/style';
 import { useContext } from "react"
 import { LoginContext } from "../context/LoginContext"
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { UserContext } from '../context/UserContext';
+import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
+import BASE_URL from '../constant/constant';
 
 export default function ProfileScreen({ navigation }) {
     const { user, setUser } = useContext(UserContext)
     const { logoutAction } = useContext(LoginContext)
     const { addAction } = useContext(LoginContext)
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        // Fetch the access token from SecureStore when the component mounts
+        fetchProfile()
+      }, []);
+    
+    const fetchProfile = async () => {
+        try {
+          const token = await SecureStore.getItemAsync('token');
+          const headers = {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          };
+      
+          const response = await axios.get(`${BASE_URL}/profiles`, { headers });
+          setImage(response.data.image)
+        } catch (error) {
+          console.error('Error submitting data:', error);
+      
+          // Handle the error, e.g., display an error message to the user
+        } finally {
+          // Reset loading state if needed
+        }
+      };
 
     return (
         <View style={styles.bgContainer}>
@@ -17,7 +46,7 @@ export default function ProfileScreen({ navigation }) {
                 <Image
                     style={styles.profileImage}
                     source={{
-                        uri: 'https://images.unsplash.com/photo-1579783483458-83d02161294e?q=80&w=2897&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                        uri: image,
                     }}
                 />
                 <View style={styles.profileDetails}>
