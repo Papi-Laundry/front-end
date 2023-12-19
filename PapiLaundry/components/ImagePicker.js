@@ -1,37 +1,26 @@
-import React, { useState } from 'react';
-import * as ImagePicker from 'expo-image-picker'
-import { Image, View } from 'react-native';
-import { Button } from './Button';
+import React from 'react';
+import { Button } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
-export const ImagePickerComponent = () => {
-    const [image, setImage] = useState(null);
+const ImagePickerComponent = ({ onImageSelected, onDismiss }) => {
+  const selectImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
+      console.log('ImagePicker Result:', result);
 
-        console.log(result);
+      if (!result.canceled && result.assets.length > 0) {
+        onImageSelected(result.assets[0].uri);
+      } else {
+        onDismiss();
+      }
+    } catch (error) {
+      console.error('Error picking image:', error);
+      onDismiss();
+    }
+  };
 
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
-        }
-    };
-
-    return (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            {image && <Image source={{ uri: image }} style={{ width: 150, height: 150, borderRadius: 15 }} />}
-            <Button
-                title="Select Image"
-                onPress={pickImage}
-                buttonStyle={{ backgroundColor: '#e9f7f7', width: 388 }}
-                textStyle={{ color: '#6c6c6c' }}
-            >
-                Select Image</Button>
-        </View>
-    );
+  return <Button title="Select Image" onPress={selectImage} />;
 };
 
+export default ImagePickerComponent;
