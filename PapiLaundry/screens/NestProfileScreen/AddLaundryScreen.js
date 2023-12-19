@@ -9,17 +9,23 @@ import * as SecureStore from 'expo-secure-store';
 import ImagePickerComponent from '../../components/ImagePicker';
 import { Button } from '../../components/Button';
 import BASE_URL from "../../constant/constant";
+import Maps from '../../components/Maps';
 
 export default function AddLaundryScreen({ navigation }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [laundryName, setLaundryName] = useState('');
-  const [address, setAddress] = useState('');
+  // const [address, setAddress] = useState('');
   const [accessToken, setAccessToken] = useState('');
+  const [coordinates, setCoordinates] = useState(null)
 
   useEffect(() => {
     // Fetch the access token from SecureStore when the component mounts
     getAccessToken();
   }, []);
+
+  useEffect(() => {
+    console.log(coordinates, "in coord")
+  }, [coordinates])
 
   const getAccessToken = async () => {
     try {
@@ -41,30 +47,30 @@ export default function AddLaundryScreen({ navigation }) {
   };
 
   const handleSubmit = async () => {
-    if (selectedImage && laundryName.trim() !== '' && address.trim() !== '') {
+    if (selectedImage && laundryName.trim() !== '' ) {
       try {
         const formData = new FormData();
         formData.append('laundryName', laundryName);
-        formData.append('address', address);
+        formData.append('coordinates', coordinates);
         formData.append('laundryPicture', {
           uri: selectedImage,
           type: 'image/jpeg',
           name: 'laundryImage.jpg',
         });
-
+        console.log(formData, "formdata");
         // Include the access token in the headers
         const headers = {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
         };
-
+        console.log(headers);
         // Replace 'YOUR_API_ENDPOINT' with your actual backend endpoint
-        
         const response = await axios.post(`${BASE_URL}/laundries`, formData, {
           headers,
         });
-
+  
         console.log('Backend Response:', response.data);
+        // Handle the response, e.g., show success message or navigate to another screen
         navigation.goBack();
       } catch (error) {
         console.error('Error submitting data:', error);
@@ -72,8 +78,12 @@ export default function AddLaundryScreen({ navigation }) {
       }
     } else {
       console.log('Please fill in all the fields and select an image');
+      // Additional debugging info
+      console.log('selectedImage:', selectedImage);
+      console.log('laundryName:', laundryName);
+      console.log('coordinates:', coordinates);
     }
-};
+  };  
   
 return (
     <>
@@ -91,21 +101,23 @@ return (
             centerComponent={{ text: 'Add New Laundry', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
         />
         <View style={styles.bgContainer}>
-            <Text style={styles.textLabel}>Laundry Name</Text>
-            <Input
-                style={styles.inputStyleCustom}
-                inputContainerStyle={{ borderBottomWidth: 0 }}
-                value={laundryName}
-                onChangeText={(text) => setLaundryName(text)}
-            />
 
             <Text style={styles.textLabel}>Address</Text>
-            <Input
-                style={styles.inputStyleCustom}
-                inputContainerStyle={{ borderBottomWidth: 0 }}
-                value={address}
-                onChangeText={(text) => setAddress(text)}
-            />
+            <View style={{
+              height: 250
+            }}>
+              <Maps userPoint={{
+                setCoordinates
+              }} style={{ alignSelf: 'center' }}/>
+            </View>
+
+              <Text style={styles.textLabel}>Laundry Name</Text>
+              <Input
+                  style={styles.inputStyleCustom}
+                  inputContainerStyle={{ borderBottomWidth: 0 }}
+                  value={laundryName}
+                  onChangeText={(text) => setLaundryName(text)}
+              />
 
             <Text style={styles.textLabel}>Laundry Picture</Text>
             <ImagePickerComponent onImageSelected={handleImageSelected} onDismiss={handleImagePickerDismissed} />
