@@ -41,11 +41,11 @@ export const CardService = ({ children, onPress, product }) => {
         </View>
 
         <View style={styles.containerCounter}>
-          <RNBounceable style={styles.incButton} onPress={increment}><Text style={styles.counterTextIcon}>+</Text></RNBounceable>
+          <RNBounceable style={styles.incButton} onPress={decrement}><Text style={styles.counterTextIcon}>-</Text></RNBounceable>
           <View style={styles.incButtonText}>
             <Text style={styles.counterText}>{count} Pair</Text>
           </View>
-          <RNBounceable style={styles.incButton} onPress={decrement}><Text style={styles.counterTextIcon}>-</Text></RNBounceable>
+          <RNBounceable style={styles.incButton} onPress={increment}><Text style={styles.counterTextIcon}>+</Text></RNBounceable>
         </View>
 
         <RNBounceable
