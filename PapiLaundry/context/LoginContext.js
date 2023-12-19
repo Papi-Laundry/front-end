@@ -39,7 +39,7 @@ export const LoginProvider = ({ children }) => {
   useEffect(() => {
     getValueFor("token").then((data) => {
       if(data) {
-        setIsLoggedIn(true)
+        setIsLoggedIn(false)
       }
     })
   }, [])
