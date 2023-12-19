@@ -5,9 +5,9 @@ import { RegisterForm } from "../components/RegisterForm"
 import { useContext } from 'react';
 import { LoginContext } from '../context/LoginContext';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { CheckoutScreen } from "../screens/NestLaundryServices/CheckoutScreen";
 import LaundryScreen from "../screens/LaundryScreen";
 import SearchScreen from "../screens/SearchScreen";
-import { CheckoutScreen } from "../screens/NestLaundryServices/CheckoutScreen";
 import MyOrderScreen from "../screens/NestProfileScreen/MyOrderScreen";
 import MyLaundryScreen from "../screens/NestProfileScreen/MyLaundryScreen";
 import EditProfileScreen from "../screens/NestProfileScreen/EditProfileScreen";
@@ -15,6 +15,7 @@ import AddLaundryScreen from "../screens/NestProfileScreen/AddLaundryScreen";
 import AddServiceScreen from "../screens/NestProfileScreen/AddServiceScreen";
 import MyServicesScreen from "../screens/NestProfileScreen/MyServicesScreen";
 import MessageScreen from "../screens/NestLaundryServices/MessageScreen";
+import TopupScreen from "../screens/NestProfileScreen/TopupScreen";
 const Stack = createNativeStackNavigator()
 
 export default function MainStack() {
@@ -44,6 +45,7 @@ export default function MainStack() {
             <Stack.Screen name="MyServicesScreen" component={MyServicesScreen} />
             <Stack.Screen name="AddServiceScreen" component={AddServiceScreen} />
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
+            <Stack.Screen name="TopupScreen" component={TopupScreen} />
           </>
         ) : (
           <>

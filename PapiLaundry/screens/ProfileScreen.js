@@ -28,18 +28,18 @@ export default function ProfileScreen({ navigation }) {
             </View>
 
             <View style={styles.cardProfile}>
-                <TouchableOpacity onPress={() => navigation.navigate("MyLaundryScreen")}>
-                    <View style={styles.profileBtn}>
-                        <Ionicons name="wallet-outline" size={25} color={'black'} />
-                        <Text style={styles.cardTitle}>My Wallet</Text>
-                        <Text style={styles.cardTitle2}>I</Text>
-                        <Text style={styles.cardTitle}>Rp. 300.000,-</Text>
-                        <Text style={styles.cardTitle2}>I</Text>
+                <View style={styles.profileBtn}>
+                    <Ionicons name="wallet-outline" size={25} color={'black'} />
+                    <Text style={styles.cardTitle}>My Wallet</Text>
+                    <Text style={styles.cardTitle2}>I</Text>
+                    <Text style={styles.cardTitle}>Rp. 300.000,-</Text>
+                    <Text style={styles.cardTitle2}>I</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("TopupScreen")}>
                         <Ionicons name="add-circle" size={25} color={'black'} />
+                    </TouchableOpacity>
 
 
-                    </View>
-                </TouchableOpacity>
+                </View>
             </View>
 
             <View style={styles.cardProfile}>
