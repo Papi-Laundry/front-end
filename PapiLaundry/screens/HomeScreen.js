@@ -20,13 +20,22 @@ export default function HomeScreen({ navigation }) {
 
   const fetchLaundries = async () => {
     try {
-      const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/laundries?latitude=${user.location.latitude}&longitude=${user.location.longitude}`);
-      
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_API_URL}/laundries?latitude=${user.location.latitude}&longitude=${user.location.longitude}`);
       setLaundriesData(response.data);
     } catch (error) {
-      console.log(error)
+      if (error.response) {
+        console.log("Response data:", error.response.data);
+        console.log("Response status:", error.response.status);
+        console.log("Response headers:", error.response.headers);
+      } else if (error.request) {
+        console.log("No response received:", error.request);
+      } else {
+        console.log("Error setting up the request:", error.message);
+      }
+      console.log("Error config:", error.config);
     }
   };
+  
 
   const fetchProfiles = async () => {
     try {
@@ -84,6 +93,7 @@ export default function HomeScreen({ navigation }) {
       fetchLaundries();
     }
   }, [user])
+
 
   return (
     <View style={styles.bgContainer}>
