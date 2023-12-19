@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../../styles/style";
 import { Card, Input } from 'react-native-elements';
 import { SelectList } from 'react-native-dropdown-select-list'
+import Maps from '../../components/Maps';
 
 export function CheckoutScreen({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -34,14 +35,15 @@ export function CheckoutScreen({ navigation }) {
             <ScrollView>
                 <View style={styles.containerAddress}>
                     <Card>
-                        <Card.Title style={styles.cardTitleAddress}>Delivery Address</Card.Title>
+                        <Card.Title style={styles.cardTitleAddress}>Delivery Point</Card.Title>
                         <Card.Divider />
-                        <Text style={styles.textAddress}>Chairul (+62) 812-9274-9915</Text>
+                        <Maps />
+                        {/* <Text style={styles.textAddress}>Chairul (+62) 812-9274-9915</Text>
                         <Text style={styles.textAddress}>Kost Al Hidayah, Jalan Masjid Alhidayah No.5,</Text>
                         <Text style={styles.textAddress}>Pejaten Barat, Pasar Minggu, PASAR MINGGU, KOTA</Text>
                         <Text style={styles.textAddress}>JAKARTA SELATAN, DKI JAKARTA</Text>
                         <Text style={styles.textAddress}>Tambahkan instruksi khusus</Text>
-                        <Text style={styles.textAddress}>Estimasi Waktu Pengiriman: 22 menit (1.8km)</Text>
+                        <Text style={styles.textAddress}>Estimasi Waktu Pengiriman: 22 menit (1.8km)</Text> */}
                         <TouchableOpacity style={styles.editBtn} onPress={showModal}>
                             <Text style={styles.editBtnText} >Show more</Text>
                         </TouchableOpacity>
@@ -57,12 +59,7 @@ export function CheckoutScreen({ navigation }) {
                         <ScrollView contentContainerStyle={{ flexGrow: 0, justifyContent: 'center', marginTop: 70 }} style={styles.containerScrollView}>
                             <Text style={styles.modalTitle}>Edit Address</Text>
                             <TouchableOpacity style={styles.imageLaundryContainerAdress}>
-                                <Image
-                                    style={styles.imageMaps}
-                                    source={{
-                                        uri: 'https://cms.disway.id/uploads/07ef090cc67e1be0ce0441e685aac4d4.png'
-                                    }}
-                                />
+                            <Maps />
                             </TouchableOpacity>
                             <TouchableOpacity>
                                 <View style={styles.modalTextContainer}>

@@ -7,6 +7,7 @@ import { styles } from "../styles/style";
 import { useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import Maps from "../components/Maps";
+import { BackFloatButton } from "../components/BackFloatButton";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -102,6 +103,12 @@ export default function LaundryScreen({ navigation, route }) {
         <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryId={laundry.id}/>)} />
         <Tab.Screen name="Ratings" component={RatingsTab} />
       </Tab.Navigator>
+      <BackFloatButton
+         onPress={() => navigation.goBack()}
+         textStyle={{ fontSize: 15, alignItems: 'center' }}
+         text={<Ionicons name="chevron-back-outline" size={30} color={'white'} />}
+      />
+
     </View>
   )
 }
