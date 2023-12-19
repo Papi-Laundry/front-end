@@ -76,7 +76,9 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     if(user) {
-      getUserLocation();
+      if(!user.location) {
+        getUserLocation();
+      }
     }
     if(user?.location?.latitude && user.location?.longitude) {
       fetchLaundries();

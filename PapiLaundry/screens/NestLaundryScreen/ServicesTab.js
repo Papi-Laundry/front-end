@@ -14,7 +14,7 @@ export function ServicesTab({ navigation, laundryId }) {
       
       setProducts(response.data)
     } catch (error) {
-      console.log(error)
+      console.log(error, "ini")
     }
   }
 

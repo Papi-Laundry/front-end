@@ -3,13 +3,18 @@ import { useContext, useEffect, useState } from 'react'
 import { Image, Text, View } from 'react-native'
 import axios from 'axios'
 import { UserContext } from '../context/UserContext';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function Maps({ laundryPoint }) {
+export default function Maps({ laundryPoint, userPoint }) {
   const { user } = useContext(UserContext)
 
   const [locationLaundries, setLocationLaundries] = useState([])
   const [initialRegion, setInitialRegion] = useState(null)
   const [region, setRegion] = useState(null)
+  const [destination, setDetination] = useState({
+    latitude: user.location.latitude,
+    longitude: user.location.longitude
+  })
 
   const getLaundryLocation = async () => {
     if(laundryPoint) {
@@ -18,8 +23,6 @@ export default function Maps({ laundryPoint }) {
     const response = await axios({
       url: `${process.env.EXPO_PUBLIC_SERVER_URL}/laundries`
     })
-    
-    console.log(response.data)
     
     setLocationLaundries(response.data)
   }
@@ -90,6 +93,12 @@ export default function Maps({ laundryPoint }) {
           position: 'absolute'
         }}
         initialRegion={initialRegion}
+        onLongPress={(event) => {
+          setDetination({
+            latitude: event.nativeEvent.coordinate.latitude,
+            longitude: event.nativeEvent.coordinate.longitude
+          })
+        }}
         region={region}>
           {
             laundryPoint &&
@@ -107,6 +116,17 @@ export default function Maps({ laundryPoint }) {
                   height: 'auto'
                 }}
               />
+              <MapCallout>
+                <Text>Oke</Text>
+              </MapCallout>
+            </Marker>
+          }
+          {
+            userPoint &&
+            <Marker coordinate={destination}>
+              <FontAwesome name="map-marker" size={40} color="red" style={{
+                marginBottom: 40
+              }} />
               <MapCallout>
                 <Text>Oke</Text>
               </MapCallout>

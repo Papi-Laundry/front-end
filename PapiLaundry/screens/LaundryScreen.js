@@ -12,6 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function LaundryScreen({ navigation, route }) {
   const { laundry } = route.params
+  
 
   const scrollViewRef = useRef();
   const [showScrollUp, setShowScrollUp] = useState(false);

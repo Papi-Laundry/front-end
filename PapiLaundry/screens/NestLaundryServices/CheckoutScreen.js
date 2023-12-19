@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../../styles/style";
 import { Card, Input } from 'react-native-elements';
 import { SelectList } from 'react-native-dropdown-select-list'
+import Maps from '../../components/Maps';
 
 export function CheckoutScreen({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -56,14 +57,11 @@ export function CheckoutScreen({ navigation }) {
                         <View style={styles.modalContent}></View>
                         <ScrollView contentContainerStyle={{ flexGrow: 0, justifyContent: 'center', marginTop: 70 }} style={styles.containerScrollView}>
                             <Text style={styles.modalTitle}>Edit Address</Text>
-                            <TouchableOpacity style={styles.imageLaundryContainerAdress}>
-                                <Image
-                                    style={styles.imageMaps}
-                                    source={{
-                                        uri: 'https://cms.disway.id/uploads/07ef090cc67e1be0ce0441e685aac4d4.png'
-                                    }}
-                                />
-                            </TouchableOpacity>
+                            <View style={{
+                                height: 200
+                            }}>
+                                <Maps userPoint={true}/>
+                            </View>
                             <TouchableOpacity>
                                 <View style={styles.modalTextContainer}>
                                     <Text style={styles.modalText}>
