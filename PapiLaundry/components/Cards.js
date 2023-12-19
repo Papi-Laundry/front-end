@@ -9,11 +9,12 @@ export const Cards = ({ laundry, onPress }) => {
 
   return (
     <TouchableOpacity style={styles.cardContainer} onPress={onPress}>
+
       <Image style={styles.image} source={{ uri: laundry.image || '' }} />
 
       <View style={styles.details}>
-        <Text style={styles.title}>{laundry.name}</Text>
-        <Text style={styles.subtitle}>{laundry.location}</Text>
+        <Text style={styles.title}>{laundry?.name}</Text>
+        <Text style={styles.subtitle}>{laundry?.location}</Text>
         <View style={styles.meters}>
           <Ionicons name="location" />
           {/* Check if user.location is available before accessing its properties */}

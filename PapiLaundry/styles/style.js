@@ -712,14 +712,40 @@ export const styles = StyleSheet.create({
     margin: 20,
   },
 
+  cardProfileWallet: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    margin: 20,
+    display: 'flex',
+    flexDirection: 'row'
+  },
+
   cardTitle: {
     fontSize: 18,
     fontWeight: '600',
+  },
+  cardTitle2: {
+    fontSize: 30,
+    fontWeight: '100',
   },
 
   profileBtn: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: "center",
+    gap: 15,
+    backgroundColor: '#ffffff',
+    padding: 10,
+  },
+
+  walletBtn: {
+
     alignItems: "center",
     gap: 15,
     backgroundColor: '#ffffff',
@@ -741,7 +767,7 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold'
   },
-  
+
   textLabel: {
     fontSize: 18,
     padding: 10,
@@ -917,8 +943,48 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  
+
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+
+  incButton: {
+    width: "10%",
+    backgroundColor: "#FFB559",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    padding: 1
+  },
+  incButtonText: {
+    width: 'auto',
+    backgroundColor: "#fff0dd",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    padding: 5
+  },
+  counterText: {
+    fontSize: 14,
+    color: '#000000',
+    padding: 5
+  },
+  counterTextIcon: {
+    fontSize: 20,
+    color: '#000000',
+    padding: 5
+  },
+  containerCounter: {
+    display: 'flex', 
+    flexDirection: 'row', 
+    gap: 5, 
+    marginVertical: 10 
+  },
+  centeredContainer: {
+    alignItems: 'center',
+  },
+  centeredImage: {
+    width: 200, 
+    height: 200,
   },
 });

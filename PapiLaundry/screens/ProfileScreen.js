@@ -9,7 +9,7 @@ import { UserContext } from '../context/UserContext';
 export default function ProfileScreen({ navigation }) {
     const { user, setUser } = useContext(UserContext)
     const { logoutAction } = useContext(LoginContext)
-    const {addAction} = useContext(LoginContext)
+    const { addAction } = useContext(LoginContext)
 
     return (
         <View style={styles.bgContainer}>
@@ -30,17 +30,32 @@ export default function ProfileScreen({ navigation }) {
             <View style={styles.cardProfile}>
                 <TouchableOpacity onPress={() => navigation.navigate("MyLaundryScreen")}>
                     <View style={styles.profileBtn}>
+                        <Ionicons name="wallet-outline" size={25} color={'black'} />
+                        <Text style={styles.cardTitle}>My Wallet</Text>
+                        <Text style={styles.cardTitle2}>I</Text>
+                        <Text style={styles.cardTitle}>Rp. 300.000,-</Text>
+                        <Text style={styles.cardTitle2}>I</Text>
+                        <Ionicons name="add-circle" size={25} color={'black'} />
+
+
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.cardProfile}>
+                <TouchableOpacity onPress={() => navigation.navigate("MyLaundryScreen")}>
+                    <View style={styles.profileBtn}>
                         <Ionicons name="shirt" size={25} color={'black'} />
                         <Text style={styles.cardTitle}>My Laundry</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity  onPress={() => navigation.navigate("MyOrderScreen")}>
+                <TouchableOpacity onPress={() => navigation.navigate("MyOrderScreen")}>
                     <View style={styles.profileBtn}>
                         <Ionicons name="cart" size={25} color={'black'} />
                         <Text style={styles.cardTitle}>My Orders</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity  onPress={() => navigation.navigate("EditProfileScreen")}>
+                <TouchableOpacity onPress={() => navigation.navigate("EditProfileScreen")}>
                     <View style={styles.profileBtn}>
                         <Ionicons name="settings" size={25} color={'black'} />
                         <Text style={styles.cardTitle}>Edit Profile</Text>

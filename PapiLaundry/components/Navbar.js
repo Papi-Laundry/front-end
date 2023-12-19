@@ -33,9 +33,7 @@ const HeaderRightComponent = () => {
             <View style={styles.topBarSearch}>
                 <CustomHeaderIcon
                     icon="menu"
-                    onPress={() => {
-                        navigation.navigate("SearchScreen"); // Navigate to SearchScreen
-                    }}
+                    onPress={() => logoutAction("token")}
                 />
                 {/* <Text style={styles.topBarSearchtext}>Search</Text> */}
             </View>
