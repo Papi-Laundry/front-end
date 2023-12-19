@@ -6,8 +6,9 @@ import { styles } from "../../styles/style";
 import { Card, Input } from 'react-native-elements';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Maps from '../../components/Maps';
+import RNBounceable from "@freakycoder/react-native-bounceable";
 
-export function CheckoutScreen({ navigation }) {
+export function CheckoutScreen({ navigation, route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [selected, setSelected] = React.useState("");
     const data = [
@@ -23,6 +24,16 @@ export function CheckoutScreen({ navigation }) {
         setModalVisible(false);
     };
 
+    const [count, setCount] = useState(0);
+
+    function increment() {
+      setCount(prevCount => prevCount + 1);
+    }
+  
+    function decrement() {
+      setCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
+    }
+
     return (
         <SafeAreaView>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
@@ -37,7 +48,9 @@ export function CheckoutScreen({ navigation }) {
                     <Card>
                         <Card.Title style={styles.cardTitleAddress}>Delivery Point</Card.Title>
                         <Card.Divider />
-                        <Maps />
+                        <View style={{ width: 369, height: 130, borderRadius: 15, overflow: 'hidden', }}>
+                            <Maps />
+                        </View>
                         {/* <Text style={styles.textAddress}>Chairul (+62) 812-9274-9915</Text>
                         <Text style={styles.textAddress}>Kost Al Hidayah, Jalan Masjid Alhidayah No.5,</Text>
                         <Text style={styles.textAddress}>Pejaten Barat, Pasar Minggu, PASAR MINGGU, KOTA</Text>
@@ -56,47 +69,29 @@ export function CheckoutScreen({ navigation }) {
                         presentationStyle='overFullScreen'
                     >
                         <View style={styles.modalContent}></View>
-                        <ScrollView contentContainerStyle={{ flexGrow: 0, justifyContent: 'center', marginTop: 70 }} style={styles.containerScrollView}>
+                        <ScrollView contentContainerStyle={{ flexGrow: 0, justifyContent: 'center', marginTop: 30 }} style={styles.containerScrollView}>
                             <Text style={styles.modalTitle}>Edit Address</Text>
                             <TouchableOpacity style={styles.imageLaundryContainerAdress}>
-                            <Maps />
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={styles.modalTextContainer}>
-                                    <Text style={styles.modalText}>
-                                        Chairul ( +62 ) 812-9274-9915 Kost Al Hidayah , Jalan Masjid Alhidayah No.5 , Pejaten Barat , Pasar Minggu , PASAR MINGGU , KOTA JAKARTA SELATAN , DKI JAKARTA Tambahkan instruksi khusus Estimasi Waktu Pengiriman : 22 menit ( 1.8km )
-                                    </Text>
+                                <View style={styles.mapsCheckout}>
+                                    <Maps />
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity>
                                 <View style={styles.modalTextContainer2}>
                                     <Ionicons name="navigate-circle-outline" size={20} color="black" />
                                     <Text style={styles.modalText2}>
-                                        Use Current Address
+                                        Choose Delivery Point
                                     </Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <View style={styles.modalTextContainer2}>
+                                {/* <View style={styles.modalTextContainer2}>
                                     <Ionicons name="add-circle-outline" size={20} color="black" />
                                     <Text style={styles.modalText2}>
                                         Add New Address
                                     </Text>
-                                </View>
+                                </View> */}
                             </TouchableOpacity>
-                            <Text style={styles.modalTitleSecondary}>Saved Address</Text>
-                            <View style={styles.modalTextSavedAddress}>
-                                <View style={styles.titleMainAddress}>
-                                    <Ionicons name="location" size={15} />
-                                    <Text>Main Address</Text>
-                                </View>
-                                <Text>
-                                    Chairul ( +62 ) 812-9274-9915 Kost Al Hidayah , Jalan Masjid Alhidayah No.5 , Pejaten Barat , Pasar Minggu , PASAR MINGGU , KOTA JAKARTA SELATAN , DKI JAKARTA Tambahkan instruksi khusus Estimasi Waktu Pengiriman : 22 menit ( 1.8km )
-                                </Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.editBtn}>Edit</Text>
-                                </TouchableOpacity>
-                            </View>
                             <Button title="Close" onPress={hideModal} />
                         </ScrollView>
                     </Modal>
@@ -107,22 +102,19 @@ export function CheckoutScreen({ navigation }) {
                     <View style={styles.details}>
                         <Text style={styles.title}>Shoes Cleaning</Text>
                         <Text style={styles.subtitle}>Instant</Text>
-                        <Text>1 Pair</Text>
+                        <View style={styles.containerCounter}>
+                            <RNBounceable style={styles.incButton} onPress={decrement}><Text style={styles.counterTextIcon}>-</Text></RNBounceable>
+                            <View style={styles.incButtonText}>
+                                <Text style={styles.counterText}>{count} Pair</Text>
+                            </View>
+                            <RNBounceable style={styles.incButton} onPress={increment}><Text style={styles.counterTextIcon}>+</Text></RNBounceable>
+                        </View>
                         <View style={styles.meters}>
                             <Ionicons name="pricetag" />
                             <Text>RP. 100.000</Text>
                         </View>
                     </View>
                 </View>
-
-                <TouchableOpacity style={styles.cardContainerCheckout}>
-                    <View style={styles.containerVoucher}>
-                        <Ionicons name="pricetags" size={20} color="black" />
-                        <Text style={styles.modalText2}>
-                            Use Vouchers
-                        </Text>
-                    </View>
-                </TouchableOpacity>
 
                 <View style={styles.cardContainerNotes}>
                     <Input

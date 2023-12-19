@@ -35,7 +35,7 @@ export function ServicesTab({ navigation, laundryId }) {
 
       <TouchableOpacity
         style={styles.floatingButton}
-        onPress={() => { navigation.navigate("CheckoutScreen");
+        onPress={() => { navigation.navigate("CheckoutScreen" ) ;
             // Logika untuk menangani saat tombol checkout ditekan
             // if (isShoesChecked) {
             //     navigation.navigate("CheckoutScreen");

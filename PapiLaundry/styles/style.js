@@ -290,8 +290,8 @@ export const styles = StyleSheet.create({
   },
 
   imageCheckout: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 115,
   },
 
   imageUserRating: {
@@ -338,6 +338,12 @@ export const styles = StyleSheet.create({
   },
 
   imageServices: {
+    width: '100%',
+    height: 150,
+    borderRadius: 10,
+  },
+
+  imageCheckpointMap: {
     width: '100%',
     height: 150,
     borderRadius: 10,
@@ -975,16 +981,20 @@ export const styles = StyleSheet.create({
     padding: 5
   },
   containerCounter: {
-    display: 'flex', 
-    flexDirection: 'row', 
-    gap: 5, 
-    marginVertical: 10 
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 5,
+    marginVertical: 10
   },
   centeredContainer: {
     alignItems: 'center',
   },
   centeredImage: {
-    width: 200, 
+    width: 200,
     height: 200,
+  },
+  mapsCheckout: {
+    width: screenWidth,
+    height: 650,
   },
 });
