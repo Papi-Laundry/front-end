@@ -1,3 +1,10 @@
+import { Text, View, TouchableOpacity, Image } from "react-native"
+import { styles } from "../styles/style"
+import { Ionicons } from '@expo/vector-icons';
+import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
+import { getDistance } from "../helpers/location";
+
 export const Cards = ({ laundry, onPress }) => {
   // Check if laundry is undefined
   if (!laundry) {
