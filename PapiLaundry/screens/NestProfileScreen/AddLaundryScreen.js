@@ -47,43 +47,43 @@ export default function AddLaundryScreen({ navigation }) {
   };
 
   const handleSubmit = async () => {
-    if (selectedImage && laundryName.trim() !== '' ) {
-      try {
-        const formData = new FormData();
-        formData.append('laundryName', laundryName);
-        formData.append('coordinates', coordinates);
-        formData.append('laundryPicture', {
-          uri: selectedImage,
-          type: 'image/jpeg',
-          name: 'laundryImage.jpg',
-        });
-        console.log(formData, "formdata");
-        // Include the access token in the headers
-        const headers = {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'multipart/form-data',
-        };
-        console.log(headers);
-        // Replace 'YOUR_API_ENDPOINT' with your actual backend endpoint
-        const response = await axios.post(`${BASE_URL}/laundries`, formData, {
-          headers,
-        });
-  
-        console.log('Backend Response:', response.data);
-        // Handle the response, e.g., show success message or navigate to another screen
-        navigation.goBack();
-      } catch (error) {
-        console.error('Error submitting data:', error);
-        // Handle error, show an error message, etc.
+    try {
+      if (!selectedImage || laundryName.trim() === '' || !coordinates) {
+        console.log('Please fill in all the fields and select an image');
+        return;
       }
-    } else {
-      console.log('Please fill in all the fields and select an image');
-      // Additional debugging info
-      console.log('selectedImage:', selectedImage);
-      console.log('laundryName:', laundryName);
-      console.log('coordinates:', coordinates);
+  
+      // Set a loading state here if necessary
+  
+      const formData = new FormData();
+      formData.append('laundryName', laundryName);
+      formData.append('coordinates', JSON.stringify(coordinates));
+      formData.append('laundryPicture', {
+        uri: selectedImage,
+        type: 'image/jpeg',
+        name: 'laundryImage.jpg',
+      });
+  
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
+      };
+  
+      const response = await axios.post(`${BASE_URL}/laundries`, formData, { headers });
+  
+      console.log('Backend Response:', response);
+  
+      // Handle the response, e.g., show success message or navigate to another screen
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error submitting data:', error);
+  
+      // Handle the error, e.g., display an error message to the user
+    } finally {
+      // Reset loading state if needed
     }
-  };  
+  };
+  
   
 return (
     <>
