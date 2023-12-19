@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Image, ScrollView, Text, View } from 'react-native'
 import axios from 'axios'
 import MapCard from './MapCard'
+import { SwiperDrawer } from './SwiperDrawer'
 
 export default function Maps() {
   const [errorMsg, setErrorMsg] = useState(null)
@@ -120,6 +121,7 @@ export default function Maps() {
             )
           })}
         </ScrollView>
+        <SwiperDrawer/>
       </View>
     </View>
   )

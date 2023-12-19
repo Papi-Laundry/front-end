@@ -1,6 +1,7 @@
 import { ScrollView, Text, View } from "react-native";
 import { styles } from '../styles/style';
 import { NotificationCard } from "../components/NotificationCard";
+import { SwiperDrawer } from "../components/SwiperDrawer";
 const product = {
     id: 1,
     title: 'Extra Shoes Cleaning',
@@ -15,11 +16,10 @@ export default function NotificationScreen({ navigation }) {
             <NotificationCard product={product} />
             <NotificationCard product={product} />
             <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
+
+            {/* <SwiperDrawer>
+                <Text>Hello, this is inside the SwiperDrawer!</Text>
+            </SwiperDrawer> */}
         </ScrollView>
     )
 }

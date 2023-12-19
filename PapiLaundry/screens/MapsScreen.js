@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { styles } from '../styles/style';
 import { SearchBarFloating } from "../components/SearchBarFloating";
 import { useState } from "react";
@@ -8,7 +8,6 @@ export default function MapsScreen({ navigation }) {
     const [searchText, setSearchText] = useState('');
 
     const handleSearch = (text) => {
-        // Lakukan sesuatu dengan teks pencarian, misalnya filter data, panggil API, dll.
         setSearchText(text);
     };
     return (
