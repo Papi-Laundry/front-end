@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Image, TouchableOpacity, View, Text } from "react-native"
+import { Image, View, Text } from "react-native"
 import { styles } from "../styles/style";
-import { Ionicons } from "@expo/vector-icons";
 import RNBounceable from "@freakycoder/react-native-bounceable";
 
 export const CardService = ({ children, onPress, product }) => {
@@ -52,14 +51,14 @@ export const CardService = ({ children, onPress, product }) => {
           style={{
             height: 50,
             width: "100%",
-            backgroundColor: checkboxState ? '#41d24e' : '#FFB559',
+            backgroundColor: checkboxState ? '#FFB559' : '#fff0dd',
             borderRadius: 12,
             alignItems: "center",
             justifyContent: "center",
           }}
           onPress={() => setCheckboxState(!checkboxState)}
         >
-          <Text style={{ color: "#fff", fontWeight: 'bold' }}>{checkboxState ? 'Added!' : 'Select Product'}</Text>
+          <Text style={{ color: checkboxState ? 'white' : 'black', fontWeight: 'bold' }}>{checkboxState ? 'Added!' : 'Select Product'}</Text>
         </RNBounceable>
       </View>
     </>
