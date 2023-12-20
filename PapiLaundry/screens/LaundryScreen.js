@@ -4,7 +4,7 @@ import { ServicesTab } from "./NestLaundryScreen/ServicesTab";
 import { RatingsTab } from "./NestLaundryScreen/RatingsTab";
 import { AirbnbRating } from "react-native-elements";
 import { styles } from "../styles/style";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import Maps from "../components/Maps";
 import { BackFloatButton } from "../components/BackFloatButton";
@@ -12,8 +12,13 @@ import { BackFloatButton } from "../components/BackFloatButton";
 const Tab = createMaterialTopTabNavigator();
 
 export default function LaundryScreen({ navigation, route }) {
+  const [laundryOwner, setLaundryOwner] = useState()
   const { laundry } = route.params
-  console.log(laundry, "<<<");
+  console.log(laundry);
+  useEffect(() => {
+    // Fetch the access token from SecureStore when the component mounts
+    setLaundryOwner({name: laundry.name, image: laundry.owner.image, userId:laundry.owner.userId})
+  }, []);
 
   const scrollViewRef = useRef();
   const [showScrollUp, setShowScrollUp] = useState(false);
@@ -101,7 +106,7 @@ export default function LaundryScreen({ navigation, route }) {
           style: { backgroundColor: 'white' },
           indicatorStyle: { backgroundColor: '#074295' },
         }}>
-        <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryId={laundry.id}/>)} />
+        <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryOwner={laundryOwner} laundryId={laundry.id}/>)} />
         <Tab.Screen name="Ratings" component={RatingsTab} />
       </Tab.Navigator>
       <BackFloatButton

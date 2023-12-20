@@ -5,8 +5,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { CardService } from "../../components/CardService";
 import axios from 'axios';
 
-export function ServicesTab({ navigation, laundryId }) {
+export function ServicesTab({ navigation, laundryId, laundryOwner}) {
   const [products, setProducts] = useState([])
+  console.log(laundryOwner);
 
   const fetchProducts = async () => {
     try {
@@ -47,7 +48,9 @@ export function ServicesTab({ navigation, laundryId }) {
         <Text style={styles.floatingButtonText}>Checkout</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.floatingButtonLeft} >
+      <TouchableOpacity 
+      onPress={() => { navigation.navigate("MessageScreen", { laundryOwner })}} 
+      style={styles.floatingButtonLeft} >
         <Ionicons name="chatbox" style={styles.floatingButtonIcon} />
       </TouchableOpacity>
     </>
