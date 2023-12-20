@@ -2,7 +2,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from "../screens/HomeScreen";
-import ChatScreen from "../screens/ChatScreen";
+import ChatScreen from "../screens/ChatScreenReal";
 import MapsScreen from "../screens/MapsScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import ProfileScreen from "../screens/ProfileScreen";

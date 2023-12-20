@@ -3,10 +3,11 @@ import * as TalkRn from '@talkjs/expo';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { UserContext } from '../../context/UserContext';
 
-export default function MessageScreen(props) {
+export default function MessageScreen({route}) {
   const [profile, setProfile] = useState({})
   const { user, setUser } = useContext(UserContext)
-
+  const { laundryOwner } = route.params;
+console.log(laundryOwner,'tess');
   const me = {
     id: user.User.id,
     name: user.User.username,
@@ -17,13 +18,14 @@ export default function MessageScreen(props) {
   };
 
   const other = {
-    id: '987654321',
-    name: 'Sebastian',
+    id: `${laundryOwner.userId}`,
+    name: `${laundryOwner.name}`,
     email: 'Sebastian@example.com',
     photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
     welcomeMessage: 'Hey, how can I help? https://google.com',
     role: 'default',
   };
+  console.log(other.id, me.id,"<<");
 
   const conversationBuilder = TalkRn.getConversationBuilder(
     TalkRn.oneOnOneId(me, other)
