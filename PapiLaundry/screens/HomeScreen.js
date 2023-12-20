@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
       console.log(error)
     }
   };
-  
+
 
   const fetchProfiles = async () => {
     try {
@@ -88,7 +88,7 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.bgContainer}>
       <ScrollView>
         <Searchbar navigation={navigation}/>
-        <Categories />
+        <Categories navigation={navigation}/>
         <CarouselImage />
         <CardTitle/>
         {laundriesData.map((laundry) => (

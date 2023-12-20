@@ -8,12 +8,10 @@ import { useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import Maps from "../components/Maps";
 import { BackFloatButton } from "../components/BackFloatButton";
-
 const Tab = createMaterialTopTabNavigator();
 
 export default function LaundryScreen({ navigation, route }) {
   const { laundry } = route.params
-  console.log(laundry, "<<<");
 
   const scrollViewRef = useRef();
   const [showScrollUp, setShowScrollUp] = useState(false);

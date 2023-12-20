@@ -7,7 +7,9 @@ import { Card, Input } from 'react-native-elements';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Maps from '../../components/Maps';
 
-export function CheckoutScreen({ navigation }) {
+export function CheckoutScreen({ navigation, route }) {
+    const { isCheckout } = route.params
+    console.log(isCheckout)
     const [modalVisible, setModalVisible] = useState(false);
     const [selected, setSelected] = React.useState("");
     const data = [

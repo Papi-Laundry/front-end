@@ -4,7 +4,7 @@ import { styles } from "../styles/style";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
-export const Categories = () => {
+export const Categories = ({ navigation }) => {
   const [categories, setCategories] = useState([])
 
   const fetchCategories = async () => {
@@ -28,19 +28,19 @@ export const Categories = () => {
         showsHorizontalScrollIndicator={false}
       >
         {categories.map(category => {
-          return <ChipStyleWithTitle title={category.name} key={category.id}/>
+          return <ChipStyleWithTitle title={category.name} key={category.id} navigation={navigation} categoryId={category.id}/>
         })}
       </ScrollView>
     </View>
   )
 }
 
-const ChipStyleWithTitle = ({ title }) => {
+const ChipStyleWithTitle = ({ title, navigation, categoryId }) => {
   return (
     <>
       <Chip
         onPress={() => {
-          console.log("test")
+          navigation.navigate("SearchScreen", { categoryId })
         }}
         textStyle={{ color: "#074295" }}
         style={styles.ChipStyle}
