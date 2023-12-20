@@ -16,6 +16,7 @@ import AddServiceScreen from "../screens/NestProfileScreen/AddServiceScreen";
 import MyServicesScreen from "../screens/NestProfileScreen/MyServicesScreen";
 import MessageScreen from "../screens/NestLaundryServices/MessageScreen";
 import TopupScreen from "../screens/NestProfileScreen/TopupScreen";
+import TopupWebScreen from "../screens/NestProfileScreen/TopupWebScreen";
 const Stack = createNativeStackNavigator()
 
 export default function MainStack() {
@@ -46,6 +47,7 @@ export default function MainStack() {
             <Stack.Screen name="AddServiceScreen" component={AddServiceScreen} />
             <Stack.Screen name="MessageScreen" component={MessageScreen} />
             <Stack.Screen name="TopupScreen" component={TopupScreen} />
+            <Stack.Screen name="TopupWeb" component={TopupWebScreen} />
           </>
         ) : (
           <>

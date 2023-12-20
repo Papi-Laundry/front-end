@@ -7,15 +7,12 @@ const ImagePickerComponent = ({ onImageSelected, onDismiss }) => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync();
 
-      console.log('ImagePicker Result:', result);
-
       if (!result.canceled && result.assets.length > 0) {
         onImageSelected(result.assets[0].uri);
       } else {
         onDismiss();
       }
     } catch (error) {
-      console.error('Error picking image:', error);
       onDismiss();
     }
   };

@@ -1,8 +1,7 @@
-import { ScrollView } from "react-native";
-import { Cards } from "../../components/Cards";
+import { ScrollView, TextInput, View } from "react-native";
 import { Header } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
-import { Button } from "../../components/Button";
+import CardTopUp from "../../components/CardTopUp";
 
 export default function TopupScreen({ navigation }) {
     return (
@@ -18,14 +17,27 @@ export default function TopupScreen({ navigation }) {
                         onPress={() => navigation.goBack()}
                     />
                 }
-                centerComponent={{ text: 'My Wallet', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
+                centerComponent={{ text: 'Top Up', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
             />
-            <ScrollView>
-                <Cards onPress={() => navigation.navigate("MyServicesScreen")} />
-                <Cards />
-                <Cards />
-                <Button onPress={() => navigation.navigate("AddLaundryScreen")}>Add Laundry</Button>
-            </ScrollView>
+            <View style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 10
+            }}>
+                <View style={{
+                    flexDirection: 'row',
+                    gap: 10,
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
+                }}>
+                    {[10000,15000,20000,30000].map(price => {
+                        return <CardTopUp price={price} key={price} toWeb={(url) => {
+                            navigation.navigate("TopupWeb", { url })
+                        }}/>
+                    })}
+                </View>
+            </View>
         </>
     )
 }

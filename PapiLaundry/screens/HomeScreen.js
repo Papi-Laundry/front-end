@@ -23,16 +23,7 @@ export default function HomeScreen({ navigation }) {
       const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/laundries?latitude=${user.location.latitude}&longitude=${user.location.longitude}`);
       setLaundriesData(response.data);
     } catch (error) {
-      if (error.response) {
-        console.log("Response data:", error.response.data);
-        console.log("Response status:", error.response.status);
-        console.log("Response headers:", error.response.headers);
-      } else if (error.request) {
-        console.log("No response received:", error.request);
-      } else {
-        console.log("Error setting up the request:", error.message);
-      }
-      console.log("Error config:", error.config);
+      console.log(error)
     }
   };
   
@@ -70,11 +61,9 @@ export default function HomeScreen({ navigation }) {
   
     setUser({
       ...user,
-      // latitude: location.coords.latitude,
-      // longitude: location.coords.longitude
       location: {
-        latitude: -6.260457,
-        longitude: 106.781739
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
       }
     })
   }

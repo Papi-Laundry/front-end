@@ -1,67 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, Image } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Text, View, Image, ScrollView } from 'react-native';
 import { styles } from '../../styles/style';
 import { Header } from 'react-native-elements/dist/header/Header';
 import { Ionicons } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
 import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
 import ImagePickerComponent from '../../components/ImagePicker';
 import { Button } from '../../components/Button';
 import BASE_URL from "../../constant/constant";
 import Maps from '../../components/Maps';
+import { LoginContext } from '../../context/LoginContext';
 
 export default function AddLaundryScreen({ navigation }) {
+  const { getToken } = useContext(LoginContext)
   const [selectedImage, setSelectedImage] = useState(null);
   const [laundryName, setLaundryName] = useState('');
-  // const [address, setAddress] = useState('');
-  const [accessToken, setAccessToken] = useState('');
+  const [laundryLocation, setLaundryLocation] = useState('');
   const [coordinates, setCoordinates] = useState(null)
-
-  useEffect(() => {
-    // Fetch the access token from SecureStore when the component mounts
-    getAccessToken();
-  }, []);
-
-  useEffect(() => {
-    console.log(coordinates, "in coord")
-  }, [coordinates])
-
-  const getAccessToken = async () => {
-    try {
-      const token = await SecureStore.getItemAsync('token');
-    //   console.log(token);
-      setAccessToken(token);
-    } catch (error) {
-      console.error('Error fetching access token:', error);
-    }
-  };
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handleImageSelected = (imageUri) => {
-    console.log('Selected Image URI:', imageUri);
     setSelectedImage(imageUri);
-  };
-
-  const handleImagePickerDismissed = () => {
-    console.log('Image picker dismissed');
   };
 
   const handleSubmit = async () => {
     try {
-      if (!selectedImage || laundryName.trim() === '' || !coordinates) {
-        console.log('Please fill in all the fields and select an image');
+      setLoading(true)
+      if (!selectedImage || laundryName.trim() === '' || laundryLocation.trim() === '' || !coordinates) {
+        setErrorMessage("Please fill in the blank")
         return;
       }
-  
-      // Set a loading state here if necessary
-  
+
+      const accessToken = await getToken()
       const formData = new FormData();
-      formData.append('laundryName', laundryName);
+      formData.append('location', laundryLocation)
+      formData.append('name', laundryName);
       formData.append('coordinates', JSON.stringify(coordinates));
-      formData.append('laundryPicture', {
+      formData.append('picture', {
         uri: selectedImage,
         type: 'image/jpeg',
-        name: 'laundryImage.jpg',
+        name: `${laundryName} - ${new Date().getTime()}.jpg`,
       });
   
       const headers = {
@@ -70,17 +49,11 @@ export default function AddLaundryScreen({ navigation }) {
       };
   
       const response = await axios.post(`${BASE_URL}/laundries`, formData, { headers });
-  
-      console.log('Backend Response:', response);
-  
-      // Handle the response, e.g., show success message or navigate to another screen
       navigation.goBack();
     } catch (error) {
-      console.error('Error submitting data:', error);
-  
-      // Handle the error, e.g., display an error message to the user
+      setErrorMessage(error.response.data.message)
     } finally {
-      // Reset loading state if needed
+      setLoading(false)
     }
   };
   
@@ -100,7 +73,7 @@ return (
             }
             centerComponent={{ text: 'Add New Laundry', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
         />
-        <View style={styles.bgContainer}>
+        <ScrollView style={styles.bgContainer}>
 
             <Text style={styles.textLabel}>Address</Text>
             <View style={{
@@ -110,6 +83,22 @@ return (
                 setCoordinates
               }} style={{ alignSelf: 'center' }}/>
             </View>
+              {errorMessage && 
+              <View style={{
+                padding: 10,
+                marginHorizontal: 10
+              }}>
+                <Text style={{
+                  color: '#FFA063'
+                }}>{errorMessage}</Text>
+              </View>}
+              <Text style={styles.textLabel}>Laundry Location</Text>
+              <Input
+                  style={styles.inputStyleCustom}
+                  inputContainerStyle={{ borderBottomWidth: 0 }}
+                  value={laundryLocation}
+                  onChangeText={(text) => setLaundryLocation(text)}
+              />
 
               <Text style={styles.textLabel}>Laundry Name</Text>
               <Input
@@ -120,16 +109,20 @@ return (
               />
 
             <Text style={styles.textLabel}>Laundry Picture</Text>
-            <ImagePickerComponent onImageSelected={handleImageSelected} onDismiss={handleImagePickerDismissed} />
+            <ImagePickerComponent onImageSelected={handleImageSelected} />
 
             {selectedImage && 
                 <View style={styles.centeredContainer}>
                     <Image source={{ uri: selectedImage }} style={styles.centeredImage} />
                 </View>
             }
-
+            {loading ? 
+            <Button buttonStyle={{
+              backgroundColor: "grey"
+            }}>Loading</Button>:
             <Button onPress={handleSubmit}>Submit</Button>
-        </View>
+            }
+        </ScrollView>
     </>
 )
 }

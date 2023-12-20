@@ -1,15 +1,44 @@
 import { styles } from '../styles/style';
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { LoginContext } from "../context/LoginContext"
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { UserContext } from '../context/UserContext';
+import { toDate, toIDR } from '../helpers/converter';
+import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 
 export default function ProfileScreen({ navigation }) {
     const { user, setUser } = useContext(UserContext)
-    const { logoutAction } = useContext(LoginContext)
-    const { addAction } = useContext(LoginContext)
+    const { logoutAction, getToken } = useContext(LoginContext)
+    const isFocused = useIsFocused()
+
+    const fetchProfiles = async () => {
+        try {
+          const token = await getToken()
+          const response = await axios({
+            url: `${process.env.EXPO_PUBLIC_SERVER_URL}/profiles`,
+            method: 'GET',
+            headers: {
+              "Authorization": "Bearer " + token
+            }
+          })
+          
+          setUser({
+            ...user,
+            ...response.data
+          })
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+    useEffect(() => {
+        if(isFocused) {
+            fetchProfiles()
+        }
+    }, [isFocused])
 
     return (
         <View style={styles.bgContainer}>
@@ -17,13 +46,13 @@ export default function ProfileScreen({ navigation }) {
                 <Image
                     style={styles.profileImage}
                     source={{
-                        uri: 'https://images.unsplash.com/photo-1579783483458-83d02161294e?q=80&w=2897&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                        uri: user.image,
                     }}
                 />
                 <View style={styles.profileDetails}>
                     <Text style={styles.profileName}>{user.name}</Text>
                     <Text style={styles.profileHandle}>@{user.User.username}</Text>
-                    <Text style={styles.profileHandle}>Joined: 20/12/2023</Text>
+                    <Text style={styles.profileHandle}>Joined: {toDate(user.createdAt)}</Text>
                 </View>
             </View>
 
@@ -32,7 +61,7 @@ export default function ProfileScreen({ navigation }) {
                     <Ionicons name="wallet-outline" size={25} color={'black'} />
                     <Text style={styles.cardTitle}>My Wallet</Text>
                     <Text style={styles.cardTitle2}>I</Text>
-                    <Text style={styles.cardTitle}>Rp. 300.000,-</Text>
+                    <Text style={styles.cardTitle}>{toIDR(user.balance)}</Text>
                     <Text style={styles.cardTitle2}>I</Text>
                     <TouchableOpacity onPress={() => navigation.navigate("TopupScreen")}>
                         <Ionicons name="add-circle" size={25} color={'black'} />
@@ -43,12 +72,12 @@ export default function ProfileScreen({ navigation }) {
             </View>
 
             <View style={styles.cardProfile}>
-                <TouchableOpacity onPress={() => navigation.navigate("MyLaundryScreen")}>
+                {user.User.role === "owner" && <TouchableOpacity onPress={() => navigation.navigate("MyLaundryScreen")}>
                     <View style={styles.profileBtn}>
                         <Ionicons name="shirt" size={25} color={'black'} />
                         <Text style={styles.cardTitle}>My Laundry</Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <TouchableOpacity onPress={() => navigation.navigate("MyOrderScreen")}>
                     <View style={styles.profileBtn}>
                         <Ionicons name="cart" size={25} color={'black'} />

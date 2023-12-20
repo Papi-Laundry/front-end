@@ -23,7 +23,6 @@ export default function Maps({ laundryPoint, userPoint }) {
     const response = await axios({
       url: `${process.env.EXPO_PUBLIC_SERVER_URL}/laundries`
     })
-    
     setLocationLaundries(response.data)
   }
 
@@ -38,6 +37,9 @@ export default function Maps({ laundryPoint, userPoint }) {
 
   useEffect(() => {
     getLaundryLocation()
+    if(userPoint) {
+      userPoint.setCoordinates(user.location)
+    }
     if(laundryPoint) {
       setInitialRegion({
         latitude: laundryPoint.coordinates[0],
@@ -94,10 +96,12 @@ export default function Maps({ laundryPoint, userPoint }) {
         }}
         initialRegion={initialRegion}
         onLongPress={(event) => {
-          userPoint.setCoordinates({
-            latitude: event.nativeEvent.coordinate.latitude,
-            longitude: event.nativeEvent.coordinate.longitude
-          })
+          if(userPoint) {
+            userPoint.setCoordinates({
+              latitude: event.nativeEvent.coordinate.latitude,
+              longitude: event.nativeEvent.coordinate.longitude
+            })
+          }
           setDetination({
             latitude: event.nativeEvent.coordinate.latitude,
             longitude: event.nativeEvent.coordinate.longitude
@@ -131,9 +135,6 @@ export default function Maps({ laundryPoint, userPoint }) {
               <FontAwesome name="map-marker" size={40} color="red" style={{
                 marginBottom: 40
               }} />
-              <MapCallout>
-                <Text>Oke</Text>
-              </MapCallout>
             </Marker>
           }
         {locationLaundries.map(laundry => {
