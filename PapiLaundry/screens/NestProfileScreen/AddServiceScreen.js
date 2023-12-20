@@ -3,10 +3,10 @@ import { styles } from "../../styles/style";
 import { Header } from "react-native-elements/dist/header/Header";
 import { Ionicons } from '@expo/vector-icons';
 import { Input } from "react-native-elements";
-import { ImagePickerComponent } from "../../components/ImagePicker";
 import { Button } from "../../components/Button";
 import React from "react";
 import { SelectList } from "react-native-dropdown-select-list";
+import ImagePickerComponent from "../../components/ImagePicker";
 
 export default function AddServiceScreen({ navigation }) {
     const [selected, setSelected] = React.useState("");
@@ -62,7 +62,7 @@ export default function AddServiceScreen({ navigation }) {
 
 
                 <Text style={styles.textLabel}>Service Image</Text>
-                <ImagePickerComponent />
+                <ImagePickerComponent/>
 
                 <Button>Sumbit</Button>
             </View>
