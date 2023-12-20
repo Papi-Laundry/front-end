@@ -1,4 +1,4 @@
-import { Button, Image, Text, View } from "react-native";
+import { Button, Image, View } from "react-native";
 import { styles } from "../../styles/style";
 import { Header, Input } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
@@ -41,7 +41,7 @@ export default function EditProfileScreen({ navigation }) {
           formData.append('picture', {
             uri: image,
             type: 'image/jpeg',
-            name: 'laundryImage.jpg',
+            name: `${user.name} - ${new Date().getTime()}.jpg`
           });
       
           const headers = {

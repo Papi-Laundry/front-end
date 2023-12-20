@@ -52,7 +52,8 @@ export function ServicesTab({ navigation, laundryId }) {
           for(let i in checkout) {
             if(checkout[i].checkout === true) {
               const productCheckout = {
-                ...checkout[i].data
+                ...checkout[i].data,
+                total: checkout[i].total
               }
               isCheckout.push(productCheckout)
             }
