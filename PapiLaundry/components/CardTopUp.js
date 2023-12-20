@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useContext } from "react";
-import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { LoginContext } from "../context/LoginContext";
+import { styles } from "../styles/style";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function CardTopUp({ price, toWeb }) {
 
-  const { getToken } = useContext(LoginContext)
+    const { getToken } = useContext(LoginContext)
 
     const handleTopup = async () => {
         try {
@@ -28,19 +30,11 @@ export default function CardTopUp({ price, toWeb }) {
     }
     return (
         <TouchableWithoutFeedback onPress={handleTopup}>
-            <View style={{
-                borderWidth: 1
-            }}>
-                <Image
-                    source={{
-                        uri: "https://static.vecteezy.com/system/resources/previews/015/275/963/original/dollar-money-bag-free-png.png"
-                    }}
-                    style={{
-                        width: 100,
-                        height: 100
-                    }}
-                />
-                <Text>{price}</Text>
+            <View style={styles.cardTopup}>
+                <View style={styles.profileBtn}>
+                    <Ionicons name="cash" size={25} color={'black'} />
+                    <Text style={styles.cardTitle}>{price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</Text>
+                </View>
             </View>
         </TouchableWithoutFeedback>
     )
