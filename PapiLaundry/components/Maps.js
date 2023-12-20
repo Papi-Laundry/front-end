@@ -1,6 +1,6 @@
 import MapView, { MapCallout, Marker } from 'react-native-maps'
 import { useContext, useEffect, useState } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, View, Linking } from 'react-native'
 import axios from 'axios'
 import { UserContext } from '../context/UserContext';
 import { FontAwesome } from '@expo/vector-icons';
@@ -42,8 +42,8 @@ export default function Maps({ laundryPoint, userPoint }) {
     }
     if(laundryPoint) {
       setInitialRegion({
-        latitude: laundryPoint.coordinates[0],
-        longitude: laundryPoint.coordinates[1],
+        latitude: laundryPoint.locationPoint.coordinates[0],
+        longitude: laundryPoint.locationPoint.coordinates[1],
         latitudeDelta: 0.002,
         longitudeDelta: 0.002
       })
@@ -111,8 +111,8 @@ export default function Maps({ laundryPoint, userPoint }) {
           {
             laundryPoint &&
             <Marker coordinate={{
-              latitude: laundryPoint.coordinates[0],
-              longitude: laundryPoint.coordinates[1]
+              latitude: laundryPoint.locationPoint.coordinates[0],
+              longitude: laundryPoint.locationPoint.coordinates[1]
             }}>
               <Image
                 source={{
@@ -124,8 +124,14 @@ export default function Maps({ laundryPoint, userPoint }) {
                   height: 'auto'
                 }}
               />
-              <MapCallout>
-                <Text>Oke</Text>
+              <MapCallout style={{
+                width: 100,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }} onPress={() => {
+                Linking.openURL(`https://maps.google.com/?q=${laundryPoint.locationPoint.coordinates[0]},${laundryPoint.locationPoint.coordinates[1]}`)
+              }}>
+                <Text>Click to Maps</Text>
               </MapCallout>
             </Marker>
           }
@@ -153,8 +159,36 @@ export default function Maps({ laundryPoint, userPoint }) {
                   height: 'auto'
                 }}
               />
-              <MapCallout>
-                <Text>Oke</Text>
+              <MapCallout
+              style={{
+                width: 200,
+                height: 200,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <View style={{
+                  flex: 1
+                }}>
+                  <Image
+                    source={{
+                      uri:laundry.laundry.image
+                    }}
+                    style={{
+                      width: 300,
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </View>
+                <View style={{
+                  alignItems: 'center',
+                  marginTop: 5
+                }}>
+                  <Text style={{
+                    fontWeight: 'bold'
+                  }}>{laundry.laundry.name}</Text>
+                  <Text>{laundry.laundry.location}</Text>
+                </View>
               </MapCallout>
             </Marker>
           )

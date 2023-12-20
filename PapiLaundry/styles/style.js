@@ -712,6 +712,18 @@ export const styles = StyleSheet.create({
     margin: 20,
   },
 
+  cardTopup: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 10,
+    shadowColor: '#000000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.20,
+    shadowRadius: 3,
+    width: screenWidth-30
+  },
+
   cardProfileWallet: {
     backgroundColor: 'white',
     borderRadius: 10,
@@ -986,5 +998,9 @@ export const styles = StyleSheet.create({
   centeredImage: {
     width: 200, 
     height: 200,
+  },
+  mapsCheckout: {
+    width: screenWidth,
+    height: 650,
   },
 });

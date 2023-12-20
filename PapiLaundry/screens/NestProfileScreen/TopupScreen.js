@@ -20,9 +20,9 @@ export default function TopupScreen({ navigation }) {
                 centerComponent={{ text: 'Top Up', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
             />
             <View style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
+                // flex: 1,
+                // justifyContent: 'center',
+                // alignItems: 'center',
                 padding: 10
             }}>
                 <View style={{
@@ -31,7 +31,7 @@ export default function TopupScreen({ navigation }) {
                     flexWrap: 'wrap',
                     justifyContent: 'center'
                 }}>
-                    {[10000,15000,20000,30000].map(price => {
+                    {[10000,50000,75000,100000].map(price => {
                         return <CardTopUp price={price} key={price} toWeb={(url) => {
                             navigation.navigate("TopupWeb", { url })
                         }}/>

@@ -7,13 +7,16 @@ import FloatingButton from "../../components/FloatingButton";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { LoginContext } from "../../context/LoginContext";
+import { useIsFocused } from '@react-navigation/native'
 
 export default function MyServicesScreen({ navigation, route }) {
   const { laundry } = route.params
 
   const { getToken } = useContext(LoginContext)
+  const isFocused = useIsFocused()
 
     const [products, setProducts] = useState([])
+    const [load, setLoad] = useState(false)
 
     const fetchProducts = async () => {
         try {
@@ -45,10 +48,20 @@ export default function MyServicesScreen({ navigation, route }) {
     useEffect(() => {
         fetchProducts()
     }, [])
-    
-    const handleButtonPress = () => {
-        console.log('Tombol ditekan!');
-    };
+
+    useEffect(() => {
+        if(load) {
+            fetchProducts()
+            setLoad(false)
+        }
+    }, [load])
+
+
+  useEffect(() => {
+    if(isFocused) {
+        fetchProducts()
+    }
+  }, [isFocused])
 
     return (
         <>
@@ -83,11 +96,14 @@ export default function MyServicesScreen({ navigation, route }) {
             <View style={styles.bgContainer}>
                 <ScrollView>
                     {products.map(product => {
-                        return <CardService key={product.id} product={product}/>
+                        return <CardService key={product.id} product={product} isMyServices={{
+                            laundryId: laundry.id,
+                            setLoad
+                        }}/>
                     })}
                 </ScrollView>
                 <FloatingButton
-                    onPress={() => navigation.navigate("AddServiceScreen")}
+                    onPress={() => navigation.navigate("AddServiceScreen", { laundryId: laundry.id })}
                     buttonStyle={{ backgroundColor: '#074295' }}
                     textStyle={{ fontSize: 15 }}
                     text={<Ionicons name="add" size={30} color={'white'} />}

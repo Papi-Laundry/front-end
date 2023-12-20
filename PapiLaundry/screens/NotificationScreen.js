@@ -1,25 +1,43 @@
 import { ScrollView, Text, View } from "react-native";
 import { styles } from '../styles/style';
 import { NotificationCard } from "../components/NotificationCard";
-const product = {
-    id: 1,
-    title: 'Extra Shoes Cleaning',
-    status: 'Order Completed',
-    image: 'https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNsZWFufGVufDB8fDB8fHww',
-}
+import axios from 'axios'
 
+import { useState, useContext, useEffect } from "react";
+import { LoginContext } from "../context/LoginContext";
+import { useIsFocused } from '@react-navigation/native';
 
 export default function NotificationScreen({ navigation }) {
+
+    const isFocused = useIsFocused()
+
+  const { getToken } = useContext(LoginContext)
+
+    const [orders, setOrders] = useState([])
+    const fetchOrder = async () => {
+        try {
+            const token = await getToken()
+            const response = await axios({
+                url: `${process.env.EXPO_PUBLIC_SERVER_URL}/orders/notifications`,
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+
+            setOrders(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchOrder()
+    }, [isFocused])
     return (
         <ScrollView style={styles.bgContainerNotif}>
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
-            <NotificationCard product={product} />
+            {orders.map(order => {
+              return <NotificationCard order={order} key={order.id}/>  
+            })}
         </ScrollView>
     )
 }

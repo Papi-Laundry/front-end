@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, View, Image, ScrollView } from 'react-native';
 import { styles } from '../../styles/style';
 import { Header } from 'react-native-elements/dist/header/Header';

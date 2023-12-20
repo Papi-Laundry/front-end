@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SearchBar } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
+import axios from "axios";
+import { Cards } from '../components/Cards';
 
-export default function SearchScreen({ navigation }) {
+export default function SearchScreen({ navigation, route }) {
+  const { categoryId } = route.params
   const [searchText, setSearchText] = useState('');
+  const [laundriesData, setLaundriesData] = useState([])
+
+  const fetchLaundries = async () => {
+    try {
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/laundries?search=${searchText}&categoryId=${categoryId ? categoryId : ""}`);
+      
+      setLaundriesData(response.data);
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   const updateSearch = (text) => {
     setSearchText(text);
   };
 
+  useEffect(() => {
+    fetchLaundries()
+  }, [searchText])
+
   return (
     <SafeAreaView>
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 20 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 20, marginBottom: 20 }}>
         <Ionicons
           name="chevron-back"
           size={24}
@@ -39,6 +57,13 @@ export default function SearchScreen({ navigation }) {
           cancelButtonProps={{ buttonTextStyle: { color: 'black', paddingRight: 10 } }} // Style for cancel button
         />
       </View>
+      {laundriesData.map((search) => (
+          <Cards
+            onPress={() => navigation.navigate("LaundryScreen", { laundry: search.laundry })}
+            key={search.id}
+            laundry={search.laundry}
+          />
+        ))}
     </SafeAreaView>
   );
 }

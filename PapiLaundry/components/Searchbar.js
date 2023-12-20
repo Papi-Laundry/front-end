@@ -18,7 +18,7 @@ export const Searchbar = ({ navigation }) => {
         </Text>
       </View>
 
-      <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate("SearchScreen")}>
+      <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate("SearchScreen", {})}>
         <View style={styles.searchBar}>
           <Ionicons name="search" style={styles.searchBarLogo} />
           <Text style={styles.searchBarText}>

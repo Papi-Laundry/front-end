@@ -3,22 +3,63 @@ import { styles } from "../../styles/style";
 import { AirbnbRating, Header } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 import { OrderCard } from "../../components/OrderCard";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button } from "../../components/Button";
+import axios from 'axios'
+import { LoginContext } from "../../context/LoginContext";
+import { ScrollView } from "react-native";
 
 export default function MyOrderScreen({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
+    const { getToken } = useContext(LoginContext)
+    const [rating, setRating] = useState(null)
+    const [rateId, setRateId] = useState(null)
 
-    const product = {
-        id: 1,
-        title: 'Extra Shoes Cleaning',
-        price: 50000,
-        status: 'Completed',
-        image: 'https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNsZWFufGVufDB8fDB8fHww',
-        rating: 4,
-    };
+    const [orders, setOrders] = useState([])
+    const fetchOrder = async () => {
+        try {
+            const token = await getToken()
+            const response = await axios({
+                url: `${process.env.EXPO_PUBLIC_SERVER_URL}/orders/my`,
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
 
-    const handleRatePress = () => {
+            setOrders(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchOrder()
+    }, [])
+
+    const handleFinished = async () => {
+        try {
+            const token = await getToken()
+            await axios({
+                method: 'PUT',
+                baseURL: `${process.env.EXPO_PUBLIC_SERVER_URL}/orders/${rateId}`,
+                data: {
+                    rating,
+                    status: "Finished"
+                },
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+
+            setRating(null)
+            setRateId(null)
+            fetchOrder()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const handleRatePress = (id) => {
+        setRateId(id)
         setModalVisible(true);
     };
 
@@ -38,9 +79,13 @@ export default function MyOrderScreen({ navigation }) {
                 centerComponent={{ text: 'My Order', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
             />
             <View style={styles.bgContainer}>
-                <View style={{ padding: 15 }}>
-                    <OrderCard product={product} onRatePress={handleRatePress} />
-                </View>
+                <ScrollView style={{ padding: 15 }}>
+                    {orders.map(order => {
+                        return (
+                            <OrderCard order={order} onRatePress={handleRatePress} key={order.id}/>
+                        )
+                    })}
+                </ScrollView>
             </View>
 
             <Modal
@@ -57,10 +102,16 @@ export default function MyOrderScreen({ navigation }) {
                         <AirbnbRating
                             count={5}
                             reviews={["1", "2", "3", "4", "5"]}
-                            defaultRating={5}
+                            defaultRating={0}
                             size={20}
+                            onFinishRating={(number) => {
+                                setRating(number)
+                            }}
                         />
-                        <Button onPress={() => setModalVisible(false)}>Close</Button>
+                        <Button onPress={() => {
+                            handleFinished()
+                            setModalVisible(false)
+                        }}>Rate</Button>
                     </View>
                 </View>
             </Modal>

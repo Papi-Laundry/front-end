@@ -8,17 +8,19 @@ import { useRef, useState, useEffect } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import Maps from "../components/Maps";
 import { BackFloatButton } from "../components/BackFloatButton";
-
+import axios from 'axios'
 const Tab = createMaterialTopTabNavigator();
 
 export default function LaundryScreen({ navigation, route }) {
   const [laundryOwner, setLaundryOwner] = useState()
   const { laundry } = route.params
+
   console.log(laundry);
   useEffect(() => {
     // Fetch the access token from SecureStore when the component mounts
     setLaundryOwner({name: laundry.name, image: laundry.owner.image, userId:laundry.owner.userId})
   }, []);
+
 
   const scrollViewRef = useRef();
   const [showScrollUp, setShowScrollUp] = useState(false);
@@ -39,6 +41,37 @@ export default function LaundryScreen({ navigation, route }) {
 
     setShowScrollUp(currentOffset > topOffset);
   };
+
+  const [rates, setRates] = useState([])
+    const fetchRating = async () => {
+        try {
+            const response = await axios({
+                url: `${process.env.EXPO_PUBLIC_SERVER_URL}/orders/${laundry.id}`
+            })
+
+            const withRating = response.data.filter(rate => {
+                return rate.rating !== null
+            })
+
+            setRates(withRating)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchRating()
+    }, [])
+
+  const getAverageRate = () => {
+    let total = 0
+    rates.forEach(rate => {
+      total += rate.rating
+    })
+    if(total === 0) return total
+    return (total/rates.length).toFixed(2)
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -72,15 +105,15 @@ export default function LaundryScreen({ navigation, route }) {
           >
             <Ionicons name="ios-arrow-up" size={20} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.secondTextLaundryName}>Clothes | Shoes | Carpet</Text>
+          <Text style={styles.secondTextLaundryName}>By {laundry.owner.name}</Text>
           <View style={styles.starsContainer}>
             <AirbnbRating
               count={5}
-              defaultRating={3}
+              defaultRating={getAverageRate()}
               size={15}
               showRating={false}
             />
-            <Text style={styles.ratingText}>4.9 (100 Reviews)</Text>
+            <Text style={styles.ratingText}>{getAverageRate()} ({rates.length} Reviews)</Text>
           </View>
         </View>
 
@@ -88,7 +121,7 @@ export default function LaundryScreen({ navigation, route }) {
           ...styles.imageLaundryContainer,
           height: 200
           }}>
-          <Maps laundryPoint={laundry.locationPoint}/>
+          <Maps laundryPoint={laundry}/>
         </View>
         <View style={styles.metersLaundry}>
           <Ionicons name="location-outline" size={20} style={styles.pinIcon} />
@@ -106,8 +139,10 @@ export default function LaundryScreen({ navigation, route }) {
           style: { backgroundColor: 'white' },
           indicatorStyle: { backgroundColor: '#074295' },
         }}>
+
         <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryOwner={laundryOwner} laundryId={laundry.id}/>)} />
-        <Tab.Screen name="Ratings" component={RatingsTab} />
+        <Tab.Screen name="Ratings" children={() => <RatingsTab rates={rates}/> } />
+
       </Tab.Navigator>
       <BackFloatButton
          onPress={() => navigation.goBack()}

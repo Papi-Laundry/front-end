@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TouchableOpacity, Button, Modal, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,13 +6,29 @@ import { styles } from "../../styles/style";
 import { Card, Input } from 'react-native-elements';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Maps from '../../components/Maps';
+import { toIDR } from '../../helpers/converter';
+import { TextInput } from 'react-native';
+import { Alert } from 'react-native';
+import axios from 'axios'
+import { UserContext } from '../../context/UserContext';
 
-export function CheckoutScreen({ navigation }) {
+import BASE_URL from "../../constant/constant";
+import { LoginContext } from '../../context/LoginContext';
+
+export function CheckoutScreen({ navigation, route }) {
+    const { isCheckout } = route.params
+    const { getToken } = useContext(LoginContext)
+    const [location, setLocation] = useState('')
+    const [notes, setNotes] = useState('')
     const [modalVisible, setModalVisible] = useState(false);
-    const [selected, setSelected] = React.useState("");
+    const [selected, setSelected] = React.useState(null);
+    const [coordinates, setCoordinates] = useState(null)
+    const { user } = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
+
     const data = [
-        { key: '1', value: 'Delivery - Rp. 30.000' },
-        { key: '2', value: 'Self Pickup - Free' },
+        { key: 30000, value: 'Delivery - Rp. 30.000' },
+        { key: 0, value: 'Self Pickup - Free' },
     ]
 
     const showModal = () => {
@@ -22,6 +38,82 @@ export function CheckoutScreen({ navigation }) {
     const hideModal = () => {
         setModalVisible(false);
     };
+
+    const getSubtotalItem = () => {
+        let total = 0
+        isCheckout.forEach(checkout => {
+            total += (checkout.price * checkout.total)
+        });
+
+        return total
+    }
+
+    const handleCheckout = async () => {
+        try {
+            setLoading(true)
+            if(getSubtotalItem() + selected > user.balance) {
+                Alert.alert('Sorry', 'Your balance is not enough', {
+                    text: 'OK'
+                })
+                return
+            }
+            if(location.trim() === '' || !coordinates || (selected !== 0 && selected !== 30000)) {
+                Alert.alert('Error', 'Please fill in the blank', {
+                    text: 'OK'
+                })
+                return
+            }
+            const token = await getToken()
+
+            for(const checkout of isCheckout) {
+                try {
+                    await startCheckout(checkout, token)
+                } catch (error) { 
+                    Alert.alert('Error', error.response.data.message, {
+                        text: "OK"
+                    })
+                }
+            }
+
+            await axios({
+                url: `${BASE_URL}/orders/`,
+                method: 'PATCH',
+                headers: {
+                    "Authorization": "Bearer " + token
+                },
+                data: {
+                    pay: selected
+                }
+            })
+
+            navigation.navigate("Home")
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const startCheckout = async (checkout, token) => {
+        try {
+            await axios({
+                url: `${BASE_URL}/orders/${checkout.id}`,
+                data: {
+                    totalUnit: checkout.total,
+                    notes,
+                    method: selected === 0 ? "Self Pickup" : "Delivery",
+                    destination: location,
+                    coordinates: JSON.stringify(coordinates)
+                },
+                method: 'POST',
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+        } catch (error) {
+            throw error
+        }
+    }
 
     return (
         <SafeAreaView>
@@ -38,14 +130,9 @@ export function CheckoutScreen({ navigation }) {
                         <Card.Title style={styles.cardTitleAddress}>Delivery Point</Card.Title>
                         <Card.Divider />
                         <Maps />
-                        {/* <Text style={styles.textAddress}>Chairul (+62) 812-9274-9915</Text>
-                        <Text style={styles.textAddress}>Kost Al Hidayah, Jalan Masjid Alhidayah No.5,</Text>
-                        <Text style={styles.textAddress}>Pejaten Barat, Pasar Minggu, PASAR MINGGU, KOTA</Text>
-                        <Text style={styles.textAddress}>JAKARTA SELATAN, DKI JAKARTA</Text>
-                        <Text style={styles.textAddress}>Tambahkan instruksi khusus</Text>
-                        <Text style={styles.textAddress}>Estimasi Waktu Pengiriman: 22 menit (1.8km)</Text> */}
+                        <Text style={styles.textAddress}>{location}</Text>
                         <TouchableOpacity style={styles.editBtn} onPress={showModal}>
-                            <Text style={styles.editBtnText} >Show more</Text>
+                            <Text style={styles.editBtnText} >Choose Delivery Point</Text>
                         </TouchableOpacity>
                     </Card>
                     <Modal
@@ -58,64 +145,55 @@ export function CheckoutScreen({ navigation }) {
                         <View style={styles.modalContent}></View>
                         <ScrollView contentContainerStyle={{ flexGrow: 0, justifyContent: 'center', marginTop: 70 }} style={styles.containerScrollView}>
                             <Text style={styles.modalTitle}>Edit Address</Text>
-                            <TouchableOpacity style={styles.imageLaundryContainerAdress}>
-                            <Maps />
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={styles.modalTextContainer}>
-                                    <Text style={styles.modalText}>
-                                        Chairul ( +62 ) 812-9274-9915 Kost Al Hidayah , Jalan Masjid Alhidayah No.5 , Pejaten Barat , Pasar Minggu , PASAR MINGGU , KOTA JAKARTA SELATAN , DKI JAKARTA Tambahkan instruksi khusus Estimasi Waktu Pengiriman : 22 menit ( 1.8km )
-                                    </Text>
+                                <View style={styles.mapsCheckout}>
+                                    <Maps userPoint={{
+                                        setCoordinates
+                                    }}/>
                                 </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={styles.modalTextContainer2}>
-                                    <Ionicons name="navigate-circle-outline" size={20} color="black" />
-                                    <Text style={styles.modalText2}>
-                                        Use Current Address
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={styles.modalTextContainer2}>
-                                    <Ionicons name="add-circle-outline" size={20} color="black" />
-                                    <Text style={styles.modalText2}>
-                                        Add New Address
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <Text style={styles.modalTitleSecondary}>Saved Address</Text>
                             <View style={styles.modalTextSavedAddress}>
-                                <View style={styles.titleMainAddress}>
-                                    <Ionicons name="location" size={15} />
-                                    <Text>Main Address</Text>
+                                <View style={{
+                                    backgroundColor: "white",
+                                    padding: 10
+                                }}>
+                                    <TextInput placeholder='Detail location' value={location} onChangeText={(text) => {
+                                        setLocation(text)
+                                    }}/>
                                 </View>
-                                <Text>
-                                    Chairul ( +62 ) 812-9274-9915 Kost Al Hidayah , Jalan Masjid Alhidayah No.5 , Pejaten Barat , Pasar Minggu , PASAR MINGGU , KOTA JAKARTA SELATAN , DKI JAKARTA Tambahkan instruksi khusus Estimasi Waktu Pengiriman : 22 menit ( 1.8km )
-                                </Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.editBtn}>Edit</Text>
+                                <TouchableOpacity onPress={() => {
+                                    if(!location) {
+                                    Alert.alert('Error', 'Please input detail location', {
+                                        text: "OK"
+                                    }) } else {
+                                        hideModal()
+                                    }
+                                }}>
+                                    <Text style={styles.editBtn}>Choose</Text>
                                 </TouchableOpacity>
                             </View>
-                            <Button title="Close" onPress={hideModal} />
                         </ScrollView>
                     </Modal>
                 </View>
 
-                <View style={styles.cardContainerCheckout} onPress={() => navigation.navigate("LaundryScreen")}>
-                    <Image style={styles.imageCheckout} source={{ uri: 'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }} />
+                {isCheckout.map(checkout => {
+                return <View style={styles.cardContainerCheckout} onPress={() => navigation.navigate("LaundryScreen")} key={checkout.id}>
+                    <Image style={styles.imageCheckout} source={{ uri: checkout.image }} />
                     <View style={styles.details}>
-                        <Text style={styles.title}>Shoes Cleaning</Text>
-                        <Text style={styles.subtitle}>Instant</Text>
-                        <Text>1 Pair</Text>
+                        <Text style={styles.title}>{checkout.name}</Text>
+                        <Text style={styles.subtitle}>{checkout.category.name}</Text>
+                        <Text>{checkout.total} Unit Product</Text>
                         <View style={styles.meters}>
                             <Ionicons name="pricetag" />
-                            <Text>RP. 100.000</Text>
+                            <Text>{toIDR(checkout.price * checkout.total)}</Text>
                         </View>
                     </View>
                 </View>
+                })}
 
-                <TouchableOpacity style={styles.cardContainerCheckout}>
+                <TouchableOpacity style={styles.cardContainerCheckout} onPress={() => {
+                    Alert.alert('No Vouchers', 'You dont have vouchers yet. Please wait and we will give you in future :)', {
+                        text: 'OK'
+                    })
+                }}>
                     <View style={styles.containerVoucher}>
                         <Ionicons name="pricetags" size={20} color="black" />
                         <Text style={styles.modalText2}>
@@ -127,6 +205,10 @@ export function CheckoutScreen({ navigation }) {
                 <View style={styles.cardContainerNotes}>
                     <Input
                         placeholder='Notes...'
+                        value={notes}
+                        onChangeText={(text) => {
+                            setNotes(text)
+                        }}
                     >
                     </Input>
                 </View>
@@ -135,8 +217,7 @@ export function CheckoutScreen({ navigation }) {
                     <SelectList
                         setSelected={(val) => setSelected(val)}
                         data={data}
-                        save="value"
-                        onSelect={() => alert(selected)}
+                        save="key"
                         placeholder='Select delivery method here...'
                         boxStyles={{ borderRadius: 0, borderColor: 'white' }}
                     />
@@ -154,7 +235,7 @@ export function CheckoutScreen({ navigation }) {
                             </View>
                             <View>
                                 <Text style={styles.subtotalPriceText}>
-                                    RP. 100.000
+                                    {toIDR(getSubtotalItem())}
                                 </Text>
                             </View>
                         </View>
@@ -166,7 +247,7 @@ export function CheckoutScreen({ navigation }) {
                             </View>
                             <View>
                                 <Text style={styles.subtotalPriceText}>
-                                    RP. 30.000
+                                    {toIDR(selected)}
                                 </Text>
                             </View>
                         </View>
@@ -192,17 +273,24 @@ export function CheckoutScreen({ navigation }) {
                         </View>
                         <View>
                             <Text style={styles.totalPriceText}>
-                                RP. 130.000
+                               {toIDR(getSubtotalItem() + selected)}
                             </Text>
                         </View>
                     </View>
                 </TouchableOpacity>
+                <View style={styles.containerCheckout}>
+                    {loading ? <TouchableOpacity style={{
+                        ...styles.buttonCheckout,
+                        backgroundColor: 'grey',
+                    }}>
+                        <Text style={{...styles.buttonTextChekout, color: 'white'}}>Checkout</Text>
+                    </TouchableOpacity> : 
+                    <TouchableOpacity style={styles.buttonCheckout} onPress={handleCheckout}>
+                        <Text style={styles.buttonTextChekout}>Checkout</Text>
+                    </TouchableOpacity> 
+                    }
+                </View>
             </ScrollView>
-            <View style={styles.containerCheckout}>
-                <TouchableOpacity style={styles.buttonCheckout} >
-                    <Text style={styles.buttonTextChekout}>Checkout</Text>
-                </TouchableOpacity>
-            </View>
         </SafeAreaView >
     )
 }
