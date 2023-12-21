@@ -37,9 +37,10 @@ export const LoginProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    SecureStore.deleteItemAsync('token')
     getValueFor("token").then((data) => {
       if(data) {
-        setIsLoggedIn(true)
+        setIsLoggedIn(false)
       }
     })
   }, [])
