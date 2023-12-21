@@ -8,11 +8,7 @@ import { Alert } from "react-native";
 import { useContext } from 'react'
 import { UserContext } from "../../context/UserContext";
 
-<<<<<<< HEAD
 export function ServicesTab({ navigation, laundryId, laundry }) {
-=======
-export function ServicesTab({ navigation, laundryId, laundryOwner}) {
->>>>>>> 401c749e22ababdde2b2a437d01411770374d415
   const [products, setProducts] = useState([])
   const [checkout, setCheckout] = useState({})
   const { user } = useContext(UserContext)
@@ -82,7 +78,6 @@ export function ServicesTab({ navigation, laundryId, laundryOwner}) {
         <Text style={styles.floatingButtonText}>Checkout</Text>
       </TouchableOpacity>
 
-<<<<<<< HEAD
       <TouchableOpacity style={styles.floatingButtonLeft} onPress={() => {
         if(laundry.owner.userId !== user.id) {
           navigation.navigate("MessageScreen", { laundry })
@@ -90,11 +85,6 @@ export function ServicesTab({ navigation, laundryId, laundryOwner}) {
           Alert.alert('Error', 'This is your laundry!')
         }
       }} >
-=======
-      <TouchableOpacity 
-      onPress={() => { navigation.navigate("MessageScreen", { laundryOwner })}} 
-      style={styles.floatingButtonLeft} >
->>>>>>> 401c749e22ababdde2b2a437d01411770374d415
         <Ionicons name="chatbox" style={styles.floatingButtonIcon} />
       </TouchableOpacity>
     </>

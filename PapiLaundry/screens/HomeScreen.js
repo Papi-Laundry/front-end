@@ -19,7 +19,6 @@ export default function HomeScreen({ navigation }) {
   const [laundriesData, setLaundriesData] = useState([]);
 
   const fetchLaundries = async () => {
-    console.log(`${process.env.EXPO_PUBLIC_SERVER_URL}/laundries?latitude=${user.location.latitude}&longitude=${user.location.longitude}`);
     try {
       const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/laundries?latitude=${user.location.latitude}&longitude=${user.location.longitude}`);
       // console.log(response);

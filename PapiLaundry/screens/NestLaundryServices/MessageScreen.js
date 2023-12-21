@@ -4,7 +4,6 @@ import { UserContext } from '../../context/UserContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from 'react-native-elements';
 
-<<<<<<< HEAD
 import { Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native';
 import { Text } from 'react-native';
@@ -14,31 +13,6 @@ const MessageScreen = ({navigation, route}) => {
 
     let { user } = useContext(UserContext)
     const chatboxRef = React.useRef(null)
-=======
-export default function MessageScreen({route}) {
-  const [profile, setProfile] = useState({})
-  const { user, setUser } = useContext(UserContext)
-  const { laundryOwner } = route.params;
-console.log(laundryOwner,'tess');
-  const me = {
-    id: user.User.id,
-    name: user.User.username,
-    email: user.User.email,
-    photoUrl: user.image,
-    welcomeMessage: 'Hey there! How are you? :-)',
-    role: 'default',
-  };
-
-  const other = {
-    id: `${laundryOwner.userId}`,
-    name: `${laundryOwner.name}`,
-    email: 'Sebastian@example.com',
-    photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
-    welcomeMessage: 'Hey, how can I help? https://google.com',
-    role: 'default',
-  };
-  console.log(other.id, me.id,"<<");
->>>>>>> 401c749e22ababdde2b2a437d01411770374d415
 
       user = {
         id: user.id,
