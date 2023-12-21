@@ -5,10 +5,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { CardService } from "../../components/CardService";
 import axios from 'axios';
 import { Alert } from "react-native";
+import { useContext } from 'react'
+import { UserContext } from "../../context/UserContext";
 
-export function ServicesTab({ navigation, laundryId }) {
+export function ServicesTab({ navigation, laundryId, laundry }) {
   const [products, setProducts] = useState([])
   const [checkout, setCheckout] = useState({})
+  const { user } = useContext(UserContext)
 
   const fetchProducts = async () => {
     try {
@@ -60,9 +63,13 @@ export function ServicesTab({ navigation, laundryId }) {
           }
 
           if(isCheckout.length > 0) {
-            navigation.navigate("CheckoutScreen", { isCheckout }, [{
-              text: "OK"
-            }]);
+            if(laundry.owner.userId !== user.id) {
+              navigation.navigate("CheckoutScreen", { isCheckout }, [{
+                text: "OK"
+              }]);
+            } else {
+              Alert.alert('Error', 'This is your laundry!')
+            }
           } else {
             Alert.alert('Error', 'Please choose at least one product to next!')
           }
@@ -71,7 +78,13 @@ export function ServicesTab({ navigation, laundryId }) {
         <Text style={styles.floatingButtonText}>Checkout</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.floatingButtonLeft} >
+      <TouchableOpacity style={styles.floatingButtonLeft} onPress={() => {
+        if(laundry.owner.userId !== user.id) {
+          navigation.navigate("MessageScreen", { laundry })
+        } else {
+          Alert.alert('Error', 'This is your laundry!')
+        }
+      }} >
         <Ionicons name="chatbox" style={styles.floatingButtonIcon} />
       </TouchableOpacity>
     </>

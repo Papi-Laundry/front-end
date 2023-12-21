@@ -131,7 +131,7 @@ export default function LaundryScreen({ navigation, route }) {
           style: { backgroundColor: 'white' },
           indicatorStyle: { backgroundColor: '#074295' },
         }}>
-        <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryId={laundry.id}/>)} />
+        <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryId={laundry.id} laundry={laundry}/>)} />
         <Tab.Screen name="Ratings" children={() => <RatingsTab rates={rates}/> } />
       </Tab.Navigator>
       <BackFloatButton

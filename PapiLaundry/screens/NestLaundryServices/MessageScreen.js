@@ -1,53 +1,74 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext}from 'react';
 import * as TalkRn from '@talkjs/expo';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { UserContext } from '../../context/UserContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Header } from 'react-native-elements';
 
-export default function MessageScreen(props) {
-  const [profile, setProfile] = useState({})
-  const { user, setUser } = useContext(UserContext)
+import { Ionicons } from '@expo/vector-icons';
+import { View } from 'react-native';
+import { Text } from 'react-native';
 
-  const me = {
-    id: user.User.id,
-    name: user.User.username,
-    email: user.User.email,
-    photoUrl: user.image,
-    welcomeMessage: 'Hey there! How are you? :-)',
-    role: 'default',
-  };
+const MessageScreen = ({navigation, route}) => {
+    const { laundry } = route.params
 
-  const other = {
-    id: '987654321',
-    name: 'Sebastian',
-    email: 'Sebastian@example.com',
-    photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
-    welcomeMessage: 'Hey, how can I help? https://google.com',
-    role: 'default',
-  };
+    let { user } = useContext(UserContext)
+    const chatboxRef = React.useRef(null)
 
-  const conversationBuilder = TalkRn.getConversationBuilder(
-    TalkRn.oneOnOneId(me, other)
-  );
+      user = {
+        id: user.id,
+        name: user.name,
+        photoUrl: user.image,
+        role: 'default',
+      };
+    
+      const other = {
+        id: laundry.owner.userId,
+        name: laundry.name,
+        photoUrl: laundry.image,
+        role: 'default',
+      };
+    
+      const conversationId = TalkRn.oneOnOneId(user.id, other.id);
+      const conversationBuilder = TalkRn.getConversationBuilder(conversationId);
+    
+      conversationBuilder.setParticipant(user);
+      conversationBuilder.setParticipant(other);
+    
+      return (
+          <>
+            <Header
+                backgroundColor="white"
+                placement="center"
+                leftComponent={
+                    <Ionicons
+                        name="chevron-back"
+                        size={24}
+                        color="black"
+                        onPress={() => navigation.goBack()}
+                    />
+                }
+                centerComponent={{ text: 'Chat', style: { color: 'black', fontWeight: 'bold', fontSize: 20 } }}
+            />
+              <TalkRn.Session appId={process.env.EXPO_PUBLIC_TALKJS} me={user} enablePushNotifications={true}>
+                <TalkRn.Chatbox
+                  ref={chatboxRef}
+                  loadingComponent={<View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                    <Text>Loading</Text>
+                    </View>}
+                  conversationBuilder={conversationBuilder}
+                  messageField={{
+                    enterSendsMessage: false,
+                    placeholder: 'Type a message'
+                  }}
+                  highlightedWords={['me', 'you']}
+                />
+              </TalkRn.Session>
+          </>
+      )
+};
 
-  conversationBuilder.setParticipant(me);
-  conversationBuilder.setParticipant(other);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.flexContainer}>
-        <TalkRn.Session appId='tmh4UMrA' me={me} style={styles.flexContainer}>
-          <TalkRn.Chatbox conversationBuilder={conversationBuilder} />
-        </TalkRn.Session>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  flexContainer: {
-    flex: 1,
-  },
-});
+export default MessageScreen;
