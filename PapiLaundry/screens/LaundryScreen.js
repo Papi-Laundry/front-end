@@ -12,7 +12,15 @@ import axios from 'axios'
 const Tab = createMaterialTopTabNavigator();
 
 export default function LaundryScreen({ navigation, route }) {
+  const [laundryOwner, setLaundryOwner] = useState()
   const { laundry } = route.params
+
+  console.log(laundry);
+  useEffect(() => {
+    // Fetch the access token from SecureStore when the component mounts
+    setLaundryOwner({name: laundry.name, image: laundry.owner.image, userId:laundry.owner.userId})
+  }, []);
+
 
   const scrollViewRef = useRef();
   const [showScrollUp, setShowScrollUp] = useState(false);
@@ -131,8 +139,14 @@ export default function LaundryScreen({ navigation, route }) {
           style: { backgroundColor: 'white' },
           indicatorStyle: { backgroundColor: '#074295' },
         }}>
+<<<<<<< HEAD
         <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryId={laundry.id} laundry={laundry}/>)} />
+=======
+
+        <Tab.Screen name="Services" children={(() => <ServicesTab navigation={navigation} laundryOwner={laundryOwner} laundryId={laundry.id}/>)} />
+>>>>>>> 401c749e22ababdde2b2a437d01411770374d415
         <Tab.Screen name="Ratings" children={() => <RatingsTab rates={rates}/> } />
+
       </Tab.Navigator>
       <BackFloatButton
          onPress={() => navigation.goBack()}
